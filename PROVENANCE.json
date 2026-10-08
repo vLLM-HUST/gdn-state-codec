@@ -10,5 +10,10 @@
   "negative_vectorized_patch_sha256": "3c142d6e74abfddceee0a0ae7db5639c30d8d85a7aab020efdfed62d32ed9745",
   "formal_evidence_sha256": "e04c3b40f729d9431bd73233d221402193515511ca201be80e7981c7cf8a18d1",
   "clean_main_retest_sha256": "69599b5027176647302522a70ef11530066e752a7f006941af9adc4500549ceb",
+  "paper_alignment_source_commit": "1995614325bbc409219f024fc8efa8ea75446155",
+  "paper_alignment_parent_commit": "6814215e8c2702e0023740dfba070ab1f32a3704",
+  "paper_alignment_round_summary_sha256": "6096479ca23c82efd1c35c07b82f4a69cc410975bcf5f544095edd0128c5ad52",
+  "paper_alignment_component_sha256": "3b3db8ab56fa8b4e35bebec5fbbece62b7fa32118096e586bbf12944bfc74891",
+  "paper_alignment_msprof_op_statistic_sha256": "95546a022d2c688be03d033578dcd5a173c4ddd0a3473d04581e4189932f485c",
   "license": "Apache-2.0"
 }
