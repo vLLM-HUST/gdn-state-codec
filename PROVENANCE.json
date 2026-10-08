@@ -38,6 +38,11 @@
     "f94a5da3911cbbd681babce42786d3d2b0b945b53473787c4ecd5706a5d97e04",
     "e197adcdf9444d1f13a69446c4093233b2d2c8c26e07a154f2ccae300dd078d0"
   ],
-  "metadata_updated_at": "2026-10-08T15:32:00Z",
+  "rank1_fast_boundary_source_commit": "466e6f12419909012ec9d41436370a0a43c6652f",
+  "rank1_fast_boundary_parent_commit": "913853597069ca5684f565b1a0c5d3e49a93fd02",
+  "rank1_fast_boundary_repository_evidence_sha256": "245fcd75e3afab110b498c956626eb05c34533655ad6ab582076afd8ad55246d",
+  "rank1_fast_boundary_local_summary_sha256": "47ef3834f6e308a40cbc4e6164379f0d569fcbe016c73421cc372969e7ca96a2",
+  "rank1_fast_boundary_local_manifest_sha256": "35ce67ca96fd66593b36867674950ba58061f84727aa33e0da1443c433008cc3",
+  "metadata_updated_at": "2026-10-08T16:52:00Z",
   "license": "Apache-2.0"
 }

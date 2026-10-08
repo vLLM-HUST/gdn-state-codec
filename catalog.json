@@ -31,20 +31,25 @@
   ],
   "latest_evidence": {
     "date": "2026-10-08",
-    "label": "model-derived-component-candidate",
-    "candidate": "p16/r1 active-rank encoded boundary",
+    "label": "real-shadow-pass-online-negative",
+    "candidate": "p16/r1 direct initialization with zero-iteration boundary",
     "correctness_gate": "pass",
-    "max_output_relative_rms": 0.009449386,
-    "no_harm_gate": "pass",
-    "matched_total_time_ratio_median": 0.976685,
-    "matched_repetitions": 3,
-    "claim": "repeated single-request component result; not an online end-to-end speedup"
+    "component_max_output_relative_rms": 0.010336713,
+    "real_shadow_max_relative_rms": 0.013344466,
+    "component_no_harm_gate": "pass",
+    "component_batched_time_ratio": 0.438021686,
+    "online_no_harm_gate": "fail",
+    "online_total_time_ratio_median": 1.067141,
+    "online_candidate_repetitions": 5,
+    "online_native_repetitions": 3,
+    "claim": "correct component optimization and real-shadow pass; tested replace-mode online request regressed"
   },
   "evidence_index": [
     "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-expanded-20261008/ROUND-RESULTS.md",
     "evidence/paper-alignment-20261008/ROUND-RESULTS.md",
     "evidence/rank1-active-rank-20261008/ROUND-RESULTS.md",
+    "evidence/rank1-fast-boundary-20261008/ROUND-RESULTS.md",
     "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
   ],
   "rollback": "Disable the LeapQuant provider and launch the unchanged native Qwen GDN provider."
