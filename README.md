@@ -10,7 +10,8 @@ the StateAxis engine integration.
 - Owner: `vLLM-HUST`
 - Canonical repository: `vLLM-HUST/stateaxis-leapquant`
 - Mod ID: `org.stateaxis.leapquant`
-- Maintainer: `ShuhaoZhangTony`
+- Directly responsible: Shuhao Zhang (Tony) (`ShuhaoZhangTony`)
+- Advisors: none (`advisors: []`)
 - Hardware scope: Ascend 910B2
 - Default state: disabled
 - Qualification: workload-qualified experiment, limited to the exact scope
@@ -102,3 +103,11 @@ engine-integration snapshot is bound to commit
 evidence are bound by commit and SHA-256 in `PROVENANCE.json`. Promoting or
 enabling this mod requires a new matched exactness and real-online result; the
 repository name alone conveys no broader performance qualification.
+
+## Authorship and responsibility
+
+The preserved implementation, experimental iterations, evidence curation,
+and this independent mod repository are authored and directly maintained by
+Shuhao Zhang (Tony) (`ShuhaoZhangTony`). No advisor role applies. This is
+recorded explicitly as `advisors: []`, matching the ownership convention used
+by the other mods rather than leaving advisor metadata unknown or inferred.

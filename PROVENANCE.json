@@ -7,6 +7,15 @@
   "maintainers": [
     "ShuhaoZhangTony"
   ],
+  "responsibility": {
+    "lead": {
+      "name": "Shuhao Zhang (Tony)",
+      "github_login": "ShuhaoZhangTony",
+      "email": "5267690+ShuhaoZhangTony@users.noreply.github.com",
+      "role": "direct owner, author, and maintainer"
+    },
+    "advisors": []
+  },
   "initial_engine_snapshot_commit": "83707092ecec1eba50d4ea33ea2da615ceaa4fd8",
   "initial_engine_snapshot_dirty": false,
   "archived_wip_commit": "0e89dd9b1f25140fa3773e2470ffb51633782768",
