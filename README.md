@@ -5,6 +5,23 @@ Qwen3.5/Qwen3.8 gated-delta recurrent state. This repository separates the
 mechanism, exactness checks, workload evidence, and rejected prototypes from
 the StateAxis engine integration.
 
+## Repository metadata
+
+- Owner: `vLLM-HUST`
+- Canonical repository: `vLLM-HUST/stateaxis-leapquant`
+- Mod ID: `org.stateaxis.leapquant`
+- Maintainer: `ShuhaoZhangTony`
+- Hardware scope: Ascend 910B2
+- Default state: disabled
+- Qualification: workload-qualified experiment, limited to the exact scope
+  below
+- Latest candidate: paper-aligned p16/r4 encoded Cube boundary; correctness
+  pass, no-harm fail
+
+`catalog.json` is the machine-readable status record. `PROVENANCE.json` binds
+the canonical repository, archived source snapshots, experiment commits, and
+evidence digests. This repository is the authoritative home of the mod.
+
 ## Status
 
 `workload-qualified-experiment` — disabled by default.
@@ -45,7 +62,7 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 ## Layout
 
 - `native/ascendc/leapquant_state_codec/`: current AscendC kernels, host
-  runtime, and component probes from StateAxis main at PR #461.
+  runtime, and component probes from the initial engine-integration snapshot.
 - `native/include`, `native/src`, `native/tests`: portable state-capsule and
   Qwen GDN mapping reference with exactness/lifecycle tests.
 - `native/specs/`: frozen mechanism and admission contracts.
@@ -79,8 +96,9 @@ cmake --build build-ascend --parallel
 
 ## Provenance and integration
 
-The canonical engine integration remains in `Qixin-Gaoke/stateaxis` merge
-commit `83707092ecec1eba50d4ea33ea2da615ceaa4fd8` (PR #461). See
-`PROVENANCE.json` for immutable source and evidence bindings. Promoting or
+This repository is the canonical mod repository. The initial
+engine-integration snapshot is bound to commit
+`83707092ecec1eba50d4ea33ea2da615ceaa4fd8`; later experimental source and raw
+evidence are bound by commit and SHA-256 in `PROVENANCE.json`. Promoting or
 enabling this mod requires a new matched exactness and real-online result; the
 repository name alone conveys no broader performance qualification.

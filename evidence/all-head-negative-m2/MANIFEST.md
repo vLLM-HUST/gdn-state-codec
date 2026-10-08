@@ -1,7 +1,7 @@
 # LeapQuant 576-head vectorized component gate (M2)
 
 - Evidence label: `component-gate / negative / no-integration`
-- Parent repository: `Qixin-Gaoke/stateaxis`
+- Parent source: initial private engine-integration snapshot
 - Parent commit: `25bbdc413a1deeb7d9a11a33c820de337f09a28d`
 - Branch/worktree: `feature/leapquant-all-head-batched` at `/workspace/stateaxis-leapquant-all-head`
 - Source state: dirty experimental prototype; complete diff is `vectorized-prototype.patch`
