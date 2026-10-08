@@ -42,6 +42,17 @@ The earlier quant-only candidate was also rejected: it was 0.44% slower in
 median request time and 0.37% slower in median ITL than the warmed native
 control, while three of four output hashes differed.
 
+### Periodic-refresh oracle
+
+A follow-up probe used Qwen3.5's actual BF16 recurrent-state contract and one
+exact p4 refresh every four cheap boundaries. Across 82 component steps it
+held maximum RMS to 0.0097923, but cost 2.574x native in total (3.446x in the
+batched loop); the exact refresh itself took 32.432 ms. A 128-token real-shadow
+request completed with the exact-reference output hash, 33.5293 seconds total,
+246.646 ms median ITL, and worst logged layer RMS 0.019905092. This confirms
+the accumulated-boundary-error diagnosis, but it is too close to the 2% gate
+and fails no-harm. It is an oracle, not a retained optimization.
+
 ## Probe correction
 
 The server may emit HTTP 200, partial SSE output, and then an embedded engine
@@ -69,7 +80,13 @@ bindings are:
 - `sketch4-preserve-shadow-server.log`:
   `7924b8cece8c37d10af8df6812a90b6310f8e86e28df55bb330d28d9a93ab72e`
 - full round summary:
-  `ab79aaaf5f66e896a7593fa766fb349494e534774e8d739be7490bbbd5c7e46f`
+  `bd3aeb3aaaa13dbd6be7e742cf939479b0005bda228a1baab9b7426e93916d89`
+- `component-periodic-refresh-i4-s82.json`:
+  `33974aae39cddc97b281dcab573ec2eb793b0f0dcee9bf0d18afe546f3b914c7`
+- `periodic-i4-shadow-first.jsonl`:
+  `17a0a36348ecb17183997c287e2f7a8ea37d1b98ee4ec04dec4e32ec95ab81ec`
+- `periodic-i4-shadow-server-v2.log`:
+  `40e10e81e4d8a095360e68d8b172688639ccd828eec9bc70887cf75c783126a1`
 
 ## Decision
 
