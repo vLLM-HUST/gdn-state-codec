@@ -31,18 +31,20 @@
   ],
   "latest_evidence": {
     "date": "2026-10-08",
-    "label": "model-derived-component-negative",
-    "candidate": "paper-aligned p16/r4 encoded Cube boundary",
+    "label": "model-derived-component-candidate",
+    "candidate": "p16/r1 active-rank encoded boundary",
     "correctness_gate": "pass",
-    "max_output_relative_rms": 0.008844586,
-    "no_harm_gate": "fail",
-    "matched_total_time_ratio": 1.5829,
-    "claim": "single-request component result; not an online end-to-end speedup"
+    "max_output_relative_rms": 0.009449386,
+    "no_harm_gate": "pass",
+    "matched_total_time_ratio_median": 0.976685,
+    "matched_repetitions": 3,
+    "claim": "repeated single-request component result; not an online end-to-end speedup"
   },
   "evidence_index": [
     "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-expanded-20261008/ROUND-RESULTS.md",
     "evidence/paper-alignment-20261008/ROUND-RESULTS.md",
+    "evidence/rank1-active-rank-20261008/ROUND-RESULTS.md",
     "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
   ],
   "rollback": "Disable the LeapQuant provider and launch the unchanged native Qwen GDN provider."

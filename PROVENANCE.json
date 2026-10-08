@@ -29,6 +29,15 @@
   "paper_alignment_round_summary_sha256": "6096479ca23c82efd1c35c07b82f4a69cc410975bcf5f544095edd0128c5ad52",
   "paper_alignment_component_sha256": "3b3db8ab56fa8b4e35bebec5fbbece62b7fa32118096e586bbf12944bfc74891",
   "paper_alignment_msprof_op_statistic_sha256": "95546a022d2c688be03d033578dcd5a173c4ddd0a3473d04581e4189932f485c",
-  "metadata_updated_at": "2026-10-08T12:48:37Z",
+  "rank1_active_rank_source_commit": "913853597069ca5684f565b1a0c5d3e49a93fd02",
+  "rank1_active_rank_parent_commit": "1995614325bbc409219f024fc8efa8ea75446155",
+  "rank1_active_rank_round_summary_sha256": "7b1a9b989041544e11b7c0d2998dfa3417265152e4b2be286429d6e80774b8b2",
+  "rank1_active_rank_repository_evidence_sha256": "c59d638ced380bd8694dace427deb9eb3d35b410ccd591b5dba57c9f722102e5",
+  "rank1_active_rank_matched_result_sha256": [
+    "a1330aebaaeafb0383a97076b7ed02d74f39ae8b93d0ef5496ec2d8e9edd6905",
+    "f94a5da3911cbbd681babce42786d3d2b0b945b53473787c4ecd5706a5d97e04",
+    "e197adcdf9444d1f13a69446c4093233b2d2c8c26e07a154f2ccae300dd078d0"
+  ],
+  "metadata_updated_at": "2026-10-08T15:32:00Z",
   "license": "Apache-2.0"
 }
