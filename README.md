@@ -11,7 +11,7 @@ the StateAxis engine integration.
 - Canonical repository: `vLLM-HUST/stateaxis-leapquant`
 - Mod ID: `org.stateaxis.leapquant`
 - Directly responsible: Shuhao Zhang (Tony) (`ShuhaoZhangTony`)
-- Advisors: none (`advisors: []`)
+- Advisor status: confirmed none (`advisor_status: none`, `advisors: []`)
 - Hardware scope: Ascend 910B2
 - Default state: disabled
 - Qualification: workload-qualified experiment, limited to the exact scope
@@ -19,7 +19,8 @@ the StateAxis engine integration.
 - Latest candidate: paper-aligned p16/r4 encoded Cube boundary; correctness
   pass, no-harm fail
 
-`catalog.json` is the machine-readable status record. `PROVENANCE.json` binds
+`MOD_METADATA.json` is the common vLLM-HUST MOD summary. `catalog.json` is the
+mechanism-specific machine-readable status record. `PROVENANCE.json` binds
 the canonical repository, archived source snapshots, experiment commits, and
 evidence digests. This repository is the authoritative home of the mod.
 

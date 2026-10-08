@@ -1,0 +1,58 @@
+{
+  "schema_version": "vllm-hust-mod-metadata-v1",
+  "mod_id": "org.stateaxis.leapquant",
+  "repository": "stateaxis-leapquant",
+  "display_name": "StateAxis LeapQuant",
+  "canonical_repository": "https://github.com/vLLM-HUST/stateaxis-leapquant",
+  "responsibility": {
+    "organization": "vLLM-HUST",
+    "maintainers": [
+      {
+        "name": "Shuhao Zhang (Tony)",
+        "github": "ShuhaoZhangTony"
+      }
+    ],
+    "advisor_status": "none",
+    "advisors": []
+  },
+  "lifecycle": {
+    "status": "workload-qualified-experiment",
+    "default_enabled": false,
+    "activation_contract": "Enable only for an explicitly qualified StateAxis integration and matched workload cell.",
+    "rollback_contract": "Disable the LeapQuant provider and launch the unchanged native Qwen GDN provider."
+  },
+  "scope": {
+    "mechanism": "bounded recurrent-state compression for Qwen gated-delta layers on Ascend",
+    "supported_workloads": [
+      "Qwen3.5-35B-A3B, TP2 eager, one AgentX first-turn request, 649 prompt tokens and 128 output tokens"
+    ],
+    "out_of_scope": [
+      "general online serving gain",
+      "graph-mode gain",
+      "multi-request gain",
+      "memory-capacity gain",
+      "other model families"
+    ]
+  },
+  "evidence": {
+    "qualification": "qualified",
+    "latest_result": "evidence/paper-alignment-20261008/ROUND-RESULTS.md",
+    "index": "catalog.json",
+    "performance_claims": [
+      {
+        "label": "real-online-e2e",
+        "scope": "Qwen3.5-35B-A3B TP2 eager, single AgentX first-turn request",
+        "result": "The retained v68 path measured 0.92% median end-to-end improvement in the formal bracket and 1.16% in the clean-main retest; independent bootstrap intervals overlap zero."
+      },
+      {
+        "label": "model-derived-component-negative",
+        "scope": "paper-aligned p16/r4 encoded Cube boundary on the frozen layer-0 fixture",
+        "result": "Correctness passed, but matched 82-step total time was 1.5829x native, so the no-harm gate failed."
+      }
+    ]
+  },
+  "metadata_source": {
+    "catalog": "catalog.json",
+    "provenance": "PROVENANCE.json"
+  }
+}
