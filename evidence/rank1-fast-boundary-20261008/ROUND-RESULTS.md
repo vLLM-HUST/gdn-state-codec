@@ -47,7 +47,42 @@ boundary/tail events rather than the steady token path.
 The previously qualified v68 result remains bounded to its different AgentX
 first turn (649 prompt/128 output): its clean-main matched retest measured a
 1.16% median online improvement, while bootstrap intervals overlapped zero.
-That result must not be transferred to the harder conversation in this round.
+A diagnostic rerun of the new rank-one fast boundary on that first turn had a
+`30.2787 s` median total time and `219.830 ms` median ITL over five measured
+repetitions. Against the historical native medians (`28.9434 s`, `224.025 ms`)
+this is 4.61% slower in total time despite 1.87% lower median ITL. The rerun
+used `max_model_len=1024` rather than the historical `2048`, so it is not
+promoted as a matched comparison; it is retained as diagnostic negative
+evidence. The v68 result must not be transferred either to the harder
+conversation or to this different LeapQuant configuration.
+
+## Architecture-selective quant-only follow-up
+
+A full report-only shadow scan of the harder turn identified two sensitive
+Qwen3.5 linear-attention layers. Layer 18 reached relative RMS `0.024046777`
+and layer 34 reached `0.022272553`; the other 28 linear-attention layers stayed
+below the unchanged 2% gate. Report-only behavior is explicitly restricted to
+shadow diagnostics; fail-fast remains the default and replace mode cannot
+disable it.
+
+Leaving layers 18 and 34 native repaired the observed component correctness
+boundary, but did not pass the online no-harm gate:
+
+| arm | runs | total median | ITL median | TTFT median |
+| --- | ---: | ---: | ---: | ---: |
+| quant-only except layers 18/34 | 5 | 28.5962 s | 221.430 ms | 0.3616 s |
+| same-round native | 5 | 28.1815 s | 217.568 ms | 0.3443 s |
+
+The selective candidate was 1.47% slower in total time and 1.78% slower in
+ITL. Deterministic 20,000-resample intervals were `[+0.743%, +3.164%]` for
+total time and `[+0.777%, +2.663%]` for ITL, entirely on the regression side.
+Both arms completed all runs with stable per-arm output hashes. A slot-owned
+output-buffer reuse experiment was also negative (`29.0463 s` median, 3.07%
+slower than native) and was reverted.
+
+This follow-up narrows the bottleneck to per-layer host dispatch/raw-ctypes
+overhead plus boundary tails. Layer exclusion is retained as sensitivity-scan
+tooling, not as a promoted performance configuration.
 
 ## Decision
 
@@ -56,7 +91,9 @@ candidate because it passes both the large component gate and the harder
 real-shadow gate. The next optimization target is cross-layer boundary tail
 latency; a bitmap is not justified for the current full 16-record windows,
 which contain no structured inactive records. Quant-only is rejected for this
-workload, and its failure is retained.
+harder workload, and its failure is retained. The previously qualified v68
+result remains the bounded positive configuration for its original
+649-prompt/128-output first turn only.
 
 Raw local evidence is archived at
 `/root/stateaxis-evidence/leapquant/2026-10-08-rank1-fast-boundary/` with a

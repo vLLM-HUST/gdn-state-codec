@@ -40,9 +40,10 @@
   ],
   "rank1_fast_boundary_source_commit": "466e6f12419909012ec9d41436370a0a43c6652f",
   "rank1_fast_boundary_parent_commit": "913853597069ca5684f565b1a0c5d3e49a93fd02",
-  "rank1_fast_boundary_repository_evidence_sha256": "245fcd75e3afab110b498c956626eb05c34533655ad6ab582076afd8ad55246d",
-  "rank1_fast_boundary_local_summary_sha256": "47ef3834f6e308a40cbc4e6164379f0d569fcbe016c73421cc372969e7ca96a2",
-  "rank1_fast_boundary_local_manifest_sha256": "35ce67ca96fd66593b36867674950ba58061f84727aa33e0da1443c433008cc3",
-  "metadata_updated_at": "2026-10-08T16:52:00Z",
+  "rank1_layer_scan_source_commit": "395cc5b46",
+  "rank1_fast_boundary_repository_evidence_sha256": "1537de836a84684e3bdd3947e7bd17b278f97f0423407d8902e5ccb453a4d29e",
+  "rank1_fast_boundary_local_summary_sha256": "354065ef78a492fb1cc3ee474af524c3687bd75e2efccba8e49df1fc53557019",
+  "rank1_fast_boundary_local_manifest_sha256": "4a1b47cc0a57de4b13cd7fce37b8921597677e8e2dd01c708f3698c274f9c98f",
+  "metadata_updated_at": "2026-10-08T17:53:00Z",
   "license": "Apache-2.0"
 }
