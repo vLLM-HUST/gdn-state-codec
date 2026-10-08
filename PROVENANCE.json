@@ -1,10 +1,14 @@
 {
   "schema": "stateaxis-independent-mod-provenance-v1",
   "name": "stateaxis-leapquant",
-  "source_repository": "Qixin-Gaoke/stateaxis",
-  "source_merge_commit": "83707092ecec1eba50d4ea33ea2da615ceaa4fd8",
-  "source_pull_request": 461,
-  "source_dirty": false,
+  "owner": "vLLM-HUST",
+  "canonical_repository": "vLLM-HUST/stateaxis-leapquant",
+  "repository_url": "https://github.com/vLLM-HUST/stateaxis-leapquant",
+  "maintainers": [
+    "ShuhaoZhangTony"
+  ],
+  "initial_engine_snapshot_commit": "83707092ecec1eba50d4ea33ea2da615ceaa4fd8",
+  "initial_engine_snapshot_dirty": false,
   "archived_wip_commit": "0e89dd9b1f25140fa3773e2470ffb51633782768",
   "archived_wip_patch_sha256": "2c1ee6537c7f9d3364a9bad173d072609630d0806f85ddc398042fa9e3469af4",
   "negative_vectorized_patch_sha256": "3c142d6e74abfddceee0a0ae7db5639c30d8d85a7aab020efdfed62d32ed9745",
@@ -15,5 +19,6 @@
   "paper_alignment_round_summary_sha256": "6096479ca23c82efd1c35c07b82f4a69cc410975bcf5f544095edd0128c5ad52",
   "paper_alignment_component_sha256": "3b3db8ab56fa8b4e35bebec5fbbece62b7fa32118096e586bbf12944bfc74891",
   "paper_alignment_msprof_op_statistic_sha256": "95546a022d2c688be03d033578dcd5a173c4ddd0a3473d04581e4189932f485c",
+  "metadata_updated_at": "2026-10-08T12:48:37Z",
   "license": "Apache-2.0"
 }

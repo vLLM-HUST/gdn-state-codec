@@ -1,10 +1,47 @@
 {
   "schema": "stateaxis-mod-catalog-v1",
   "id": "org.stateaxis.leapquant",
+  "name": "stateaxis-leapquant",
+  "display_name": "StateAxis LeapQuant",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "owner": "vLLM-HUST",
+  "maintainers": [
+    "ShuhaoZhangTony"
+  ],
+  "canonical_repository": "vLLM-HUST/stateaxis-leapquant",
+  "repository_url": "https://github.com/vLLM-HUST/stateaxis-leapquant",
   "status": "workload-qualified-experiment",
   "default_enabled": false,
+  "runtime_modes": [
+    "shadow",
+    "replace"
+  ],
   "performance_qualified": true,
   "qualification_scope": "Qwen3.5-35B-A3B TP2 eager, one AgentX first-turn request, 649 prompt tokens and 128 output tokens",
   "general_performance_claim": false,
+  "supported_hardware": [
+    "Ascend 910B2"
+  ],
+  "target_models": [
+    "Qwen3.5-35B-A3B",
+    "Qwen3.8 GDN family (mechanism only; not performance-qualified)"
+  ],
+  "latest_evidence": {
+    "date": "2026-10-08",
+    "label": "model-derived-component-negative",
+    "candidate": "paper-aligned p16/r4 encoded Cube boundary",
+    "correctness_gate": "pass",
+    "max_output_relative_rms": 0.008844586,
+    "no_harm_gate": "fail",
+    "matched_total_time_ratio": 1.5829,
+    "claim": "single-request component result; not an online end-to-end speedup"
+  },
+  "evidence_index": [
+    "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
+    "evidence/qwen35-agentx-expanded-20261008/ROUND-RESULTS.md",
+    "evidence/paper-alignment-20261008/ROUND-RESULTS.md",
+    "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
+  ],
   "rollback": "Disable the LeapQuant provider and launch the unchanged native Qwen GDN provider."
 }
