@@ -26,6 +26,17 @@ too expensive. No replace-mode or end-to-end speedup claim was made. See
 `evidence/qwen35-agentx-expanded-20261008/` for the negative result and bound
 artifact hashes.
 
+A subsequent paper-alignment round implemented an every-window rank-four
+power-iteration refit directly from the encoded state on Ascend Cube. On a
+frozen Qwen3.5-35B AgentX layer-0 fixture, one power iteration kept boundary
+reconstruction RMS at `7.23e-05`; an 82-step production-operator comparison
+passed the 2% correctness gate with `0.884%` maximum output RMS. The compressed
+steady step took `0.566x` the native time, but five boundary refits made the
+matched 82-step total `1.583x` native, so the no-harm gate failed. This path is
+not enabled and does not replace the narrowly qualified v68 result above. See
+`evidence/paper-alignment-20261008/` for the source comparison, profiler
+breakdown, hashes, and decision.
+
 The old 576-head boundary-scan/refit prototype failed the no-harm gate by more
 than two orders of magnitude. Its patch and negative measurements remain under
 `evidence/all-head-negative-m2/`; the exact archived StateAxis commit is also
@@ -42,6 +53,8 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
   and clean-main retest.
 - `evidence/qwen35-agentx-expanded-20261008/`: four-shape/concurrency probe,
   boundary-refit negative result, and immutable artifact bindings.
+- `evidence/paper-alignment-20261008/`: paper-aligned encoded Cube boundary,
+  model-derived scan, matched 82-step gate, and profiler conclusion.
 - `evidence/all-head-negative-m2/`: preserved rejected all-head experiment.
 - `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
   rejects truncated HTTP-200 SSE responses.
