@@ -16,8 +16,8 @@ the StateAxis engine integration.
 - Default state: disabled
 - Qualification: workload-qualified experiment, limited to the exact scope
   below
-- Latest candidate: paper-aligned p16/r4 encoded Cube boundary; correctness
-  pass, no-harm fail
+- Latest candidate: p16/r1 active-rank encoded boundary; repeated matched
+  component correctness/no-harm pass, pending real-online qualification
 
 `MOD_METADATA.json` is the common vLLM-HUST MOD summary. `catalog.json` is the
 mechanism-specific machine-readable status record. `PROVENANCE.json` binds
@@ -56,6 +56,15 @@ not enabled and does not replace the narrowly qualified v68 result above. See
 `evidence/paper-alignment-20261008/` for the source comparison, profiler
 breakdown, hashes, and decision.
 
+A follow-up rank scan found that one fitted compensator remained inside the
+2% exactness gate for the frozen Qwen3.5-35B/AgentX layer-0 fixture. Tracking
+the active old rank then removed three unused factor paths after the first
+boundary. Three alternating-order 82-step component repetitions measured a
+median `0.9767x` compressed/native ratio (about `2.33%` lower elapsed time),
+with `0.9449%` maximum output RMS. This is a component candidate only: it is
+still disabled and needs longer randomized and real-online validation. See
+`evidence/rank1-active-rank-20261008/`.
+
 The old 576-head boundary-scan/refit prototype failed the no-harm gate by more
 than two orders of magnitude. Its patch and negative measurements remain under
 `evidence/all-head-negative-m2/`; the exact archived StateAxis commit is also
@@ -74,6 +83,8 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
   boundary-refit negative result, and immutable artifact bindings.
 - `evidence/paper-alignment-20261008/`: paper-aligned encoded Cube boundary,
   model-derived scan, matched 82-step gate, and profiler conclusion.
+- `evidence/rank1-active-rank-20261008/`: rank scan, active-old-rank
+  specialization, repeated alternating-order matched component result.
 - `evidence/all-head-negative-m2/`: preserved rejected all-head experiment.
 - `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
   rejects truncated HTTP-200 SSE responses.
