@@ -9,6 +9,7 @@
   "maintainers": [
     "ShuhaoZhangTony"
   ],
+  "advisors": [],
   "canonical_repository": "vLLM-HUST/stateaxis-leapquant",
   "repository_url": "https://github.com/vLLM-HUST/stateaxis-leapquant",
   "status": "workload-qualified-experiment",
