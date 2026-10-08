@@ -18,6 +18,14 @@ the recorded TP2, 649-prompt/128-output first-turn workload. They are not a
 general online, graph-mode, multi-request, memory-capacity, or model-family
 claim.
 
+An expanded four-shape AgentX round did not qualify a more aggressive
+boundary-refit path. A cheap preserve-compensator variant passed its component
+gate and reached step 65 instead of step 22, but then exceeded the unchanged
+2% real-shadow RMS limit. Exact SVD passed real-shadow correctness but was far
+too expensive. No replace-mode or end-to-end speedup claim was made. See
+`evidence/qwen35-agentx-expanded-20261008/` for the negative result and bound
+artifact hashes.
+
 The old 576-head boundary-scan/refit prototype failed the no-harm gate by more
 than two orders of magnitude. Its patch and negative measurements remain under
 `evidence/all-head-negative-m2/`; the exact archived StateAxis commit is also
@@ -32,7 +40,11 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `native/specs/`: frozen mechanism and admission contracts.
 - `evidence/qwen35-agentx-v68/`: summaries for the matched real-online result
   and clean-main retest.
+- `evidence/qwen35-agentx-expanded-20261008/`: four-shape/concurrency probe,
+  boundary-refit negative result, and immutable artifact bindings.
 - `evidence/all-head-negative-m2/`: preserved rejected all-head experiment.
+- `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
+  rejects truncated HTTP-200 SSE responses.
 
 ## Validate the portable reference
 
