@@ -16,8 +16,8 @@ the StateAxis engine integration.
 - Default state: disabled
 - Qualification: workload-qualified experiment, limited to the exact scope
   below
-- Latest candidate: p16/r1 active-rank encoded boundary; repeated matched
-  component correctness/no-harm pass, pending real-online qualification
+- Latest candidate: p16/r1 fast boundary; component and 128-token real-shadow
+  correctness pass, but the tested replace-mode online request regressed
 
 `MOD_METADATA.json` is the common vLLM-HUST MOD summary. `catalog.json` is the
 mechanism-specific machine-readable status record. `PROVENANCE.json` binds
@@ -65,6 +65,18 @@ with `0.9449%` maximum output RMS. This is a component candidate only: it is
 still disabled and needs longer randomized and real-online validation. See
 `evidence/rank1-active-rank-20261008/`.
 
+The next round initialized the fixed rank-four ABI directly at fitted rank one
+and tested the zero-iteration fast boundary. On the 82-step TP-local component
+gate it measured `0.4380x` native elapsed time (about `56.2%` lower) with
+`1.034%` maximum output RMS. It also completed a harder 328-prompt/128-output
+AgentX real-shadow request across all Qwen3.5-35B GDN layers with `1.334%`
+worst logged RMS. Replace mode did not qualify: five repetitions had a
+`30.680 s` median versus `28.750 s` for native (`+6.71%`), despite similar
+median ITL. The result is therefore a correct component optimization and an
+online negative, not a new end-to-end claim. Quant-only was faster in the
+component probe but failed real shadow at layer 18, step 70 (`2.393%`). See
+`evidence/rank1-fast-boundary-20261008/`.
+
 The old 576-head boundary-scan/refit prototype failed the no-harm gate by more
 than two orders of magnitude. Its patch and negative measurements remain under
 `evidence/all-head-negative-m2/`; the exact archived StateAxis commit is also
@@ -85,6 +97,9 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
   model-derived scan, matched 82-step gate, and profiler conclusion.
 - `evidence/rank1-active-rank-20261008/`: rank scan, active-old-rank
   specialization, repeated alternating-order matched component result.
+- `evidence/rank1-fast-boundary-20261008/`: direct rank-one initialization,
+  fast-boundary real-shadow pass, matched online negative, and rejected
+  quant-only result.
 - `evidence/all-head-negative-m2/`: preserved rejected all-head experiment.
 - `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
   rejects truncated HTTP-200 SSE responses.
