@@ -1,0 +1,14 @@
+{
+  "schema": "stateaxis-independent-mod-provenance-v1",
+  "name": "stateaxis-leapquant",
+  "source_repository": "Qixin-Gaoke/stateaxis",
+  "source_merge_commit": "83707092ecec1eba50d4ea33ea2da615ceaa4fd8",
+  "source_pull_request": 461,
+  "source_dirty": false,
+  "archived_wip_commit": "0e89dd9b1f25140fa3773e2470ffb51633782768",
+  "archived_wip_patch_sha256": "2c1ee6537c7f9d3364a9bad173d072609630d0806f85ddc398042fa9e3469af4",
+  "negative_vectorized_patch_sha256": "3c142d6e74abfddceee0a0ae7db5639c30d8d85a7aab020efdfed62d32ed9745",
+  "formal_evidence_sha256": "e04c3b40f729d9431bd73233d221402193515511ca201be80e7981c7cf8a18d1",
+  "clean_main_retest_sha256": "69599b5027176647302522a70ef11530066e752a7f006941af9adc4500549ceb",
+  "license": "Apache-2.0"
+}

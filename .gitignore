@@ -1,0 +1,5 @@
+/build/
+/build-ascend/
+/.cache/
+*.o
+*.so
