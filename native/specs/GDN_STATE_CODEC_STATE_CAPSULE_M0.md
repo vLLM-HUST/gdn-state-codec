@@ -1,10 +1,10 @@
-# GdnStateCodec state capsule M0 reference
+# GDN State Codec state capsule M0 reference
 
 ## Status and claim boundary
 
-This document defines a default-off CPU reference contract for applying
-GdnStateCodec to StateAxis recurrent state.  It is derived independently from the
-formulas in [GdnStateCodec v1](https://arxiv.org/abs/2609.38166) (CC BY 4.0).  No
+This document defines a default-off CPU reference contract for applying GDN
+State Codec to StateAxis recurrent state. It is derived independently from the
+formulas in [LeapQuant v1](https://arxiv.org/abs/2609.38166) (CC BY 4.0). No
 author implementation or repository was linked from the paper as of
 2026-10-06, and no author code was used here.
 
@@ -76,8 +76,8 @@ The residual is smoothed with
 `C^-1 R` is symmetrically quantized per value channel to INT8.  The next
 window begins from `C * (Z/127) * B + K U^T`; the old records are discarded.
 This implements per-window quantization, high-precision buffered updates,
-Compensator Tokens, and residual smoothing together.  Naive per-token INT8 is
-not an admissible GdnStateCodec implementation.
+Compensator Tokens, and residual smoothing together. Naive per-token INT8 is
+not an admissible implementation of this codec.
 
 The oracle deliberately fixes details not specified by the paper: sinusoidal
 power-iteration initialization, 32 iterations per rank, sequential deflation,

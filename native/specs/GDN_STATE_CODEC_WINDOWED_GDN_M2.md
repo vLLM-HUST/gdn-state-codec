@@ -1,10 +1,10 @@
-# GdnStateCodec windowed GDN M2
+# GDN State Codec windowed GDN M2
 
 ## Scope correction
 
 The standalone boundary codec in `GDN_STATE_CODEC_QWEN38_DEVICE_CODEC_M1.md` is a
 layout and correctness screen only. Its encode/copy/decode timing is not a
-reproduction of GdnStateCodec and must not be used to accept or reject the paper's
+reproduction of LeapQuant and must not be used to accept or reject the paper's
 performance claims.
 
 M2 follows the paper's decode representation for Qwen GDN:

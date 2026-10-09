@@ -1,8 +1,8 @@
-# GdnStateCodec Qwen GDN device codec M1
+# GDN State Codec Qwen GDN device codec M1
 
 > **Historical component only.** This standalone boundary codec does not
 > implement the paper's fused `p=16` windowed decode path. Its timings must not
-> be presented as a reproduction or refutation of GdnStateCodec. See
+> be presented as a reproduction or refutation of LeapQuant. See
 > `GDN_STATE_CODEC_WINDOWED_GDN_M2.md` for the corrected scope and matched gate.
 
 ## Boundary
