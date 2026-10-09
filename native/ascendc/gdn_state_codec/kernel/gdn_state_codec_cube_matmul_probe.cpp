@@ -19,7 +19,7 @@ __aicore__ inline void CopyTiling(TCubeTiling* destination,
 }
 }  // namespace
 
-// Correctness probe for the Cube ABI used by the GdnStateCodec boundary refit.
+// Correctness probe for the Cube ABI used by the GDN State Codec boundary refit.
 // A is [M,K] FP16, B is [K,N] FP16, and C is [M,N] FP32 in ND format.
 extern "C" __global__ __aicore__ void statecentric_gdn_state_codec_cube_matmul_probe(
     GM_ADDR a, GM_ADDR b, GM_ADDR c, uint32_t states, uint32_t transpose_a,

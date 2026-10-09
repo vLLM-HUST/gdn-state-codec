@@ -7,7 +7,7 @@
 
 namespace statecentric {
 
-// Qwen recurrent state is provider-major [value,key]. GdnStateCodec stores the
+// Qwen recurrent state is provider-major [value,key]. GDN State Codec stores the
 // same matrix transposed as [key,value].
 std::vector<float> Qwen38ProviderStateToGdnStateCodec(
     std::span<const float> provider_value_key, std::size_t key_dimension,
@@ -22,7 +22,7 @@ std::vector<float> GdnStateCodecStateToQwen38Provider(
 //   delta <- beta * (v - R k)
 //   R <- R + delta k^T
 //   o <- scale * R q
-// For S=R^T, the equivalent GdnStateCodec record is decay=exp(g),
+// For S=R^T, the equivalent GDN State Codec record is decay=exp(g),
 // write_key=beta*k, read=exp(g)*k, value=v, query=scale*q.
 GdnStateCodecTokenInput Qwen38GdnTokenToGdnStateCodec(
     float log_decay, float beta, float query_scale,

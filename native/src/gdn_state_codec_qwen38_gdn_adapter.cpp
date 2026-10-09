@@ -41,11 +41,11 @@ std::vector<float> GdnStateCodecStateToQwen38Provider(
     std::span<const float> gdn_state_codec_key_value, std::size_t key_dimension,
     std::size_t value_dimension) {
   Require(key_dimension > 0 && value_dimension > 0,
-          "GdnStateCodec state geometry must be nonzero");
+          "GDN State Codec state geometry must be nonzero");
   Require(gdn_state_codec_key_value.size() == key_dimension * value_dimension,
-          "GdnStateCodec state geometry differs");
+          "GDN State Codec state geometry differs");
   Require(AllFinite(gdn_state_codec_key_value),
-          "GdnStateCodec state is non-finite");
+          "GDN State Codec state is non-finite");
   std::vector<float> provider(key_dimension * value_dimension);
   for (std::size_t key = 0; key < key_dimension; ++key) {
     for (std::size_t value = 0; value < value_dimension; ++value) {
