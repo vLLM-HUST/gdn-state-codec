@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vllm-hust-gdn-state-codec"
+dynamic = ["version"]
+description = "Runtime-loadable GDN recurrent-state codec for vLLM-Ascend"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+test = ["build>=1.2", "pytest>=8", "ruff>=0.12"]
+
+[project.entry-points."vllm.general_plugins"]
+gdn_state_codec = "gdn_state_codec.plugin:register"
+
+[project.entry-points."vllm_hust.extension_bundles"]
+"org.vllm-hust.gdn-state-codec" = "gdn_state_codec.manifests"
+
+[tool.setuptools.dynamic]
+version = {attr = "gdn_state_codec._version.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gdn_state_codec = ["manifests/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]

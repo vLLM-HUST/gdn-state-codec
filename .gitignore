@@ -3,3 +3,7 @@
 /.cache/
 *.o
 *.so
+__pycache__/
+*.py[cod]
+dist/
+*.egg-info/
