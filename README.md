@@ -1,6 +1,6 @@
-# StateAxis LeapQuant
+# GDN State Codec
 
-LeapQuant is a bounded Ascend 910B2 state-compression experiment for the
+GDN State Codec is a bounded Ascend 910B2 state-compression experiment for the
 Qwen3.5/Qwen3.8 gated-delta recurrent state. This repository separates the
 mechanism, exactness checks, workload evidence, and rejected prototypes from
 the StateAxis engine integration.
@@ -8,8 +8,9 @@ the StateAxis engine integration.
 ## Repository metadata
 
 - Owner: `vLLM-HUST`
-- Canonical repository: `vLLM-HUST/stateaxis-leapquant`
-- Mod ID: `org.stateaxis.leapquant`
+- Canonical repository: `vLLM-HUST/gdn-state-codec`
+- Compatibility mod ID: `org.stateaxis.leapquant` (unchanged so existing
+  StateAxis configurations and evidence remain resolvable)
 - Directly responsible: Shuhao Zhang (Tony) (`ShuhaoZhangTony`)
 - Advisor status: confirmed none (`advisor_status: none`, `advisors: []`)
 - Hardware scope: Ascend 910B2
@@ -130,6 +131,12 @@ engine-integration snapshot is bound to commit
 evidence are bound by commit and SHA-256 in `PROVENANCE.json`. Promoting or
 enabling this mod requires a new matched exactness and real-online result; the
 repository name alone conveys no broader performance qualification.
+
+The historical `LeapQuant` source paths, exported symbols, schema strings, and
+`org.stateaxis.leapquant` mod ID are compatibility identifiers. They remain
+unchanged so archived evidence and existing StateAxis integrations can be
+reproduced without an ABI or provenance break; they are not the public project
+name.
 
 ## Authorship and responsibility
 
