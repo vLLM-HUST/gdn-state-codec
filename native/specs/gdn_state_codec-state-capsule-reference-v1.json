@@ -2,7 +2,7 @@
   "schema": "statecentric-gdn_state_codec-state-capsule-reference-v1",
   "paper": {
     "id": "arXiv:2609.38166v1",
-    "title": "GdnStateCodec: Efficient Linear Attention with Accurate Recurrent State Quantization",
+    "title": "LeapQuant: Efficient Linear Attention with Accurate Recurrent State Quantization",
     "implementation_provenance": "independent-from-paper-formulas",
     "author_code_found": false,
     "checked_at_utc": "2026-10-06"
