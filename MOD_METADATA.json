@@ -1,6 +1,6 @@
 {
   "schema_version": "vllm-hust-mod-metadata-v1",
-  "mod_id": "org.stateaxis.leapquant",
+  "mod_id": "org.vllm-hust.gdn-state-codec",
   "repository": "gdn-state-codec",
   "display_name": "GDN State Codec",
   "canonical_repository": "https://github.com/vLLM-HUST/gdn-state-codec",
@@ -19,7 +19,7 @@
     "status": "workload-qualified-experiment",
     "default_enabled": false,
     "activation_contract": "Enable only for an explicitly qualified StateAxis integration and matched workload cell.",
-    "rollback_contract": "Disable the GDN State Codec provider (compatibility ID org.stateaxis.leapquant) and launch the unchanged native Qwen GDN provider."
+    "rollback_contract": "Disable the org.vllm-hust.gdn-state-codec provider and launch the unchanged native Qwen GDN provider."
   },
   "scope": {
     "mechanism": "bounded recurrent-state compression for Qwen gated-delta layers on Ascend",
