@@ -19,6 +19,16 @@
     "shadow",
     "replace"
   ],
+  "activation": {
+    "manager": "vllm-hust-extension-manager",
+    "manifest_schema": "0.3-experimental",
+    "bundle_id": "org.vllm-hust.gdn-state-codec",
+    "entry_point": "vllm.general_plugins:gdn_state_codec",
+    "default_enabled": false,
+    "enable_environment": "VLLM_HUST_GDN_STATE_CODEC_ENABLE",
+    "kill_switch_environment": "VLLM_HUST_GDN_STATE_CODEC_KILL_SWITCH",
+    "stateaxis_runtime_dependency": false
+  },
   "performance_qualified": false,
   "qualification_scope": "none for version 0.2.0; historical v68 evidence is retained but not inherited",
   "general_performance_claim": false,
@@ -53,6 +63,7 @@
     }
   ],
   "evidence_index": [
+    "evidence/ecpa-manager03-launch-20261009/ROUND-RESULTS.md",
     "evidence/batched-provider-init-20261009/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-v020-expanded-20261009/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
@@ -62,5 +73,5 @@
     "evidence/rank1-fast-boundary-20261008/ROUND-RESULTS.md",
     "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
   ],
-  "rollback": "Disable the org.vllm-hust.gdn-state-codec provider and launch the unchanged native Qwen GDN provider."
+  "rollback": "Set VLLM_HUST_GDN_STATE_CODEC_KILL_SWITCH=1 or disable the org.vllm-hust.gdn-state-codec ECPA Bundle, restart vLLM, and use the unchanged native Qwen GDN provider."
 }

@@ -53,6 +53,9 @@
   "v020_expanded_concurrency_negative_sha256": "558e52e38a174b54a772a00dbc7731a990400fa8a599ab56b78e60db5d568d3d",
   "batched_provider_init_results_sha256": "3fc89c03a402845a4fed1d51207fe87e7d28c4128189d03be04c35f85ac95504",
   "batched_provider_init_round_summary_sha256": "0a2cf88b9ab01038dcabb463b4410ebf96b4170bbe652d216d2ca3e2b7262391",
-  "metadata_updated_at": "2026-10-09T06:32:00Z",
+  "ecpa_manifest03_activation_source_commit": "0de7f0c30910421c78b082efe84d4316871b11c3",
+  "ecpa_manifest03_results_sha256": "e4df2b8afd9cf4c3860fbf4b1a3a1369798380fc3098d96be860da136f493383",
+  "ecpa_manifest03_round_summary_sha256": "322af613f09e65f0d58878d510772289d8f99e4f2eae23799b51e9a415e81ec4",
+  "metadata_updated_at": "2026-10-09T07:15:00Z",
   "license": "Apache-2.0"
 }
