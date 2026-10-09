@@ -1,9 +1,9 @@
 {
   "schema": "stateaxis-mod-catalog-v1",
-  "id": "org.stateaxis.leapquant",
+  "id": "org.vllm-hust.gdn-state-codec",
   "name": "gdn-state-codec",
   "display_name": "GDN State Codec",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "owner": "vLLM-HUST",
   "maintainers": [
@@ -52,5 +52,5 @@
     "evidence/rank1-fast-boundary-20261008/ROUND-RESULTS.md",
     "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
   ],
-  "rollback": "Disable the GDN State Codec provider (compatibility ID org.stateaxis.leapquant) and launch the unchanged native Qwen GDN provider."
+  "rollback": "Disable the org.vllm-hust.gdn-state-codec provider and launch the unchanged native Qwen GDN provider."
 }

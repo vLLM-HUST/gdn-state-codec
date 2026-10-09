@@ -9,8 +9,7 @@ the StateAxis engine integration.
 
 - Owner: `vLLM-HUST`
 - Canonical repository: `vLLM-HUST/gdn-state-codec`
-- Compatibility mod ID: `org.stateaxis.leapquant` (unchanged so existing
-  StateAxis configurations and evidence remain resolvable)
+- Mod ID: `org.vllm-hust.gdn-state-codec`
 - Directly responsible: Shuhao Zhang (Tony) (`ShuhaoZhangTony`)
 - Advisor status: confirmed none (`advisor_status: none`, `advisors: []`)
 - Hardware scope: Ascend 910B2
@@ -85,7 +84,7 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 
 ## Layout
 
-- `native/ascendc/leapquant_state_codec/`: current AscendC kernels, host
+- `native/ascendc/gdn_state_codec/`: current AscendC kernels, host
   runtime, and component probes from the initial engine-integration snapshot.
 - `native/include`, `native/src`, `native/tests`: portable state-capsule and
   Qwen GDN mapping reference with exactness/lifecycle tests.
@@ -117,7 +116,7 @@ The AscendC component is configured separately and requires CANN 9.1.0 on
 Ascend 910B2:
 
 ```bash
-cmake -S native/ascendc/leapquant_state_codec -B build-ascend \
+cmake -S native/ascendc/gdn_state_codec -B build-ascend \
   -DASCEND_HOME_PATH=/usr/local/Ascend/cann-9.1.0 \
   -DSOC_VERSION=ascend910b2
 cmake --build build-ascend --parallel
@@ -132,11 +131,12 @@ evidence are bound by commit and SHA-256 in `PROVENANCE.json`. Promoting or
 enabling this mod requires a new matched exactness and real-online result; the
 repository name alone conveys no broader performance qualification.
 
-The historical `LeapQuant` source paths, exported symbols, schema strings, and
-`org.stateaxis.leapquant` mod ID are compatibility identifiers. They remain
-unchanged so archived evidence and existing StateAxis integrations can be
-reproduced without an ABI or provenance break; they are not the public project
-name.
+Version 0.2.0 replaces the former paper-derived project identity with the
+organization-owned `org.vllm-hust.gdn-state-codec` identity and
+`gdn_state_codec` API surface. This is an intentional source/ABI migration, not
+an alias: active integrations must update their ID, imports, library names, and
+configuration. Historical evidence and archived patches remain byte-for-byte
+unchanged. See `MIGRATION.md` for the exact mapping.
 
 ## Authorship and responsibility
 
