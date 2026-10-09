@@ -159,7 +159,7 @@ int main(int argc, char** argv) {
     }
     device = std::stoi(argv[1]);
     const std::uint32_t initial_position =
-        argc == 3 ? static_cast<std::uint32_t>(std::stoul(argv[2])) : 7U;
+        argc >= 3 ? static_cast<std::uint32_t>(std::stoul(argv[2])) : 7U;
     if (initial_position >= kWindow) {
       throw std::invalid_argument("POSITION must be in [0,15]");
     }
