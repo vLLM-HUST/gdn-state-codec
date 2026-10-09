@@ -1,8 +1,8 @@
 {
   "schema": "stateaxis-mod-catalog-v1",
   "id": "org.stateaxis.leapquant",
-  "name": "stateaxis-leapquant",
-  "display_name": "StateAxis LeapQuant",
+  "name": "gdn-state-codec",
+  "display_name": "GDN State Codec",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "owner": "vLLM-HUST",
@@ -11,8 +11,8 @@
   ],
   "advisor_status": "none",
   "advisors": [],
-  "canonical_repository": "vLLM-HUST/stateaxis-leapquant",
-  "repository_url": "https://github.com/vLLM-HUST/stateaxis-leapquant",
+  "canonical_repository": "vLLM-HUST/gdn-state-codec",
+  "repository_url": "https://github.com/vLLM-HUST/gdn-state-codec",
   "status": "workload-qualified-experiment",
   "default_enabled": false,
   "runtime_modes": [
@@ -52,5 +52,5 @@
     "evidence/rank1-fast-boundary-20261008/ROUND-RESULTS.md",
     "evidence/all-head-negative-m2/NEGATIVE_RESULTS.md"
   ],
-  "rollback": "Disable the LeapQuant provider and launch the unchanged native Qwen GDN provider."
+  "rollback": "Disable the GDN State Codec provider (compatibility ID org.stateaxis.leapquant) and launch the unchanged native Qwen GDN provider."
 }

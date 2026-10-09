@@ -1,9 +1,9 @@
 {
   "schema": "stateaxis-independent-mod-provenance-v1",
-  "name": "stateaxis-leapquant",
+  "name": "gdn-state-codec",
   "owner": "vLLM-HUST",
-  "canonical_repository": "vLLM-HUST/stateaxis-leapquant",
-  "repository_url": "https://github.com/vLLM-HUST/stateaxis-leapquant",
+  "canonical_repository": "vLLM-HUST/gdn-state-codec",
+  "repository_url": "https://github.com/vLLM-HUST/gdn-state-codec",
   "maintainers": [
     "ShuhaoZhangTony"
   ],
@@ -44,6 +44,6 @@
   "rank1_fast_boundary_repository_evidence_sha256": "1537de836a84684e3bdd3947e7bd17b278f97f0423407d8902e5ccb453a4d29e",
   "rank1_fast_boundary_local_summary_sha256": "354065ef78a492fb1cc3ee474af524c3687bd75e2efccba8e49df1fc53557019",
   "rank1_fast_boundary_local_manifest_sha256": "4a1b47cc0a57de4b13cd7fce37b8921597677e8e2dd01c708f3698c274f9c98f",
-  "metadata_updated_at": "2026-10-08T17:53:00Z",
+  "metadata_updated_at": "2026-10-09T01:12:54Z",
   "license": "Apache-2.0"
 }
