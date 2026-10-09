@@ -100,6 +100,8 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `native/specs/`: frozen mechanism and admission contracts.
 - `evidence/qwen35-agentx-v68/`: summaries for the matched real-online result
   and clean-main retest.
+- `evidence/ecpa-manager03-launch-20261009/`: real Manager 0.3 discovery,
+  activation, TP2 worker-effectiveness, request, and shutdown smoke evidence.
 - `evidence/qwen35-agentx-v020-expanded-20261009/`: current-identity
   four-shape matched online negative, output-hash comparison, concurrency
   failure, and raw artifact bindings.

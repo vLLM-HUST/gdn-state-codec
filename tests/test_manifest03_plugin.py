@@ -3,10 +3,14 @@
 from __future__ import annotations
 
 import json
-import tomllib
 from pathlib import Path
 
 import pytest
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - Python 3.10
+    import tomli as tomllib
 
 from gdn_state_codec._version import __version__
 from gdn_state_codec.config import parse_gdn_state_codec_experiment

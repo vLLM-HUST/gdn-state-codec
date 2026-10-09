@@ -36,7 +36,7 @@
   },
   "evidence": {
     "qualification": "unqualified",
-    "latest_result": "evidence/qwen35-agentx-v020-expanded-20261009/ROUND-RESULTS.md",
+    "latest_result": "evidence/ecpa-manager03-launch-20261009/ROUND-RESULTS.md",
     "index": "catalog.json",
     "performance_claims": [
       {
