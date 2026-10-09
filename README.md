@@ -100,6 +100,8 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `native/specs/`: frozen mechanism and admission contracts.
 - `evidence/qwen35-agentx-v68/`: summaries for the matched real-online result
   and clean-main retest.
+- `evidence/ecpa-manager03-launch-20261009/`: real Manager 0.3 discovery,
+  activation, TP2 worker-effectiveness, request, and shutdown smoke evidence.
 - `evidence/qwen35-agentx-v020-expanded-20261009/`: current-identity
   four-shape matched online negative, output-hash comparison, concurrency
   failure, and raw artifact bindings.
@@ -116,6 +118,43 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
   rejects truncated HTTP-200 SSE responses.
 
+## Launch with vLLM-HUST Extension Manager
+
+The codec is an independent Manifest 0.3 vLLM plugin. It must be discovered,
+configured, enabled, and launched by `vllm-hust-ext`; StateAxis is neither its
+launcher nor a runtime dependency. Install the codec wheel and Extension
+Manager in the same Python environment as vLLM, then provide an absolute
+directory containing the matching native libraries:
+
+```bash
+vllm-hust-ext extension inspect org.vllm-hust.gdn-state-codec
+vllm-hust-ext extension configure org.vllm-hust.gdn-state-codec \
+  --file gdn-state-codec-manager-config.json
+vllm-hust-ext extension enable org.vllm-hust.gdn-state-codec
+vllm-hust-ext extension check org.vllm-hust.gdn-state-codec
+vllm-hust-ext run --dry-run -- vllm serve /path/to/Qwen3.5-35B-A3B \
+  --enforce-eager
+vllm-hust-ext run -- vllm serve /path/to/Qwen3.5-35B-A3B --enforce-eager
+```
+
+`gdn-state-codec-manager-config.json` contains only Manager-owned overrides:
+
+```json
+{
+  "environment": {
+    "GDN_STATE_CODEC_LIBRARY_DIR": "/absolute/path/to/release/libraries",
+    "VLLM_HUST_GDN_STATE_CODEC_ENABLE": "1"
+  }
+}
+```
+
+The Manifest supplies the bounded `gdn_state_codec` additional configuration
+and defaults to correctness-observing `shadow` mode. ECPA discovery and even
+Bundle enablement remain inert until the explicit enable variable is set;
+`VLLM_HUST_GDN_STATE_CODEC_KILL_SWITCH=1` always wins. The plugin rejects a
+missing or relative library directory, non-NPU devices, non-Qwen3.5 generation
+architectures, graph mode, and speculative decoding before native dispatch.
+
 ## Validate the portable reference
 
 ```bash
@@ -129,6 +168,7 @@ Ascend 910B2:
 
 ```bash
 cmake -S native/ascendc/gdn_state_codec -B build-ascend \
+  -DCMAKE_BUILD_TYPE=Release \
   -DASCEND_HOME_PATH=/usr/local/Ascend/cann-9.1.0 \
   -DSOC_VERSION=ascend910b2
 cmake --build build-ascend --parallel

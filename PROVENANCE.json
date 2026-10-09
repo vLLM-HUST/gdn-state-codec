@@ -51,6 +51,8 @@
   "v020_expanded_native_raw_sha256": "1e586fae611b414b38755ab2c42dccc3f2be62975e5b5561619b80e931a5b5fb",
   "v020_expanded_candidate_raw_sha256": "a362c0d21b2def3e0560d72166493dc15a1021919b307abe0c240408bdd90d08",
   "v020_expanded_concurrency_negative_sha256": "558e52e38a174b54a772a00dbc7731a990400fa8a599ab56b78e60db5d568d3d",
-  "metadata_updated_at": "2026-10-09T03:14:00Z",
+  "batched_provider_init_results_sha256": "3fc89c03a402845a4fed1d51207fe87e7d28c4128189d03be04c35f85ac95504",
+  "batched_provider_init_round_summary_sha256": "0a2cf88b9ab01038dcabb463b4410ebf96b4170bbe652d216d2ca3e2b7262391",
+  "metadata_updated_at": "2026-10-09T06:32:00Z",
   "license": "Apache-2.0"
 }

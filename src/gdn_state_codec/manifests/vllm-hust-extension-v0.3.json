@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.3-experimental",
+  "extension_id": "org.vllm-hust.gdn-state-codec",
+  "extension_version": "0.2.0.dev1",
+  "kind": "in_process_plugin",
+  "host": {
+    "provider": "vllm",
+    "name": "vllm",
+    "version_range": ">=0.23,<0.24",
+    "api_range": ">=1,<2"
+  },
+  "runtime": {
+    "type": "python",
+    "process_scope": "worker",
+    "isolation": "trusted_in_process"
+  },
+  "lifecycle_owner": "vllm",
+  "protocols": [
+    {
+      "name": "vllm.general-plugin",
+      "version_range": null
+    }
+  ],
+  "implementation": [
+    {
+      "type": "python_module",
+      "module": "gdn_state_codec.plugin",
+      "object": "register",
+      "status": "active"
+    }
+  ],
+  "requires_services": [],
+  "requires_extensions": [],
+  "resource_claims": [
+    {
+      "resource": "vllm-ascend.ops.gdn.ascend-gated-delta-net-attention.forward-core",
+      "scope": "vllm-process",
+      "mode": "exclusive"
+    }
+  ],
+  "components": [
+    {
+      "component_id": "gdn-state-codec",
+      "contracts": ["vllm.general-plugin.experimental"],
+      "execution_planes": ["worker", "native", "device"],
+      "isolation": "trusted_in_process",
+      "implementation_ref": "gdn_state_codec.plugin:register",
+      "permissions": ["device_access", "filesystem_read"]
+    }
+  ],
+  "activation": {
+    "entry_points": [
+      {
+        "group": "vllm.general_plugins",
+        "name": "gdn_state_codec"
+      }
+    ],
+    "environment": {
+      "VLLM_HUST_GDN_STATE_CODEC_ENABLE": "0",
+      "VLLM_HUST_GDN_STATE_CODEC_KILL_SWITCH": "0",
+      "VLLM_HUST_GDN_STATE_CODEC_EVIDENCE": "1",
+      "GDN_STATE_CODEC_LIBRARY_DIR": ""
+    },
+    "additional_config": {
+      "gdn_state_codec": {
+        "boundary_power_iterations": 0,
+        "decode_backend": "vector",
+        "initializer": "quant_only",
+        "mode": "shadow"
+      }
+    }
+  }
+}
