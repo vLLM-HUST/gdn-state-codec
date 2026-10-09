@@ -14,10 +14,10 @@ the StateAxis engine integration.
 - Advisor status: confirmed none (`advisor_status: none`, `advisors: []`)
 - Hardware scope: Ascend 910B2
 - Default state: disabled
-- Qualification: workload-qualified experiment, limited to the exact scope
-  below
-- Latest candidate: p16/r1 fast boundary; component and 128-token real-shadow
-  correctness pass, but the tested replace-mode online request regressed
+- Qualification: unqualified experiment; version 0.2.0 has no retained
+  performance workload
+- Latest candidate: quant-only vector replace; mixed sub-percent total-time
+  deltas, slower TTFT, changed output hashes, and no multi-request support
 
 `MOD_METADATA.json` is the common vLLM-HUST MOD summary. `catalog.json` is the
 mechanism-specific machine-readable status record. `PROVENANCE.json` binds
@@ -26,16 +26,25 @@ evidence digests. This repository is the authoritative home of the mod.
 
 ## Status
 
-`workload-qualified-experiment` — disabled by default.
+`unqualified-experiment` — disabled by default.
 
-The retained v68 path passed clean-build component correctness/no-harm gates
+The current 0.2.0 identity was retested on four Qwen3.5-35B/AgentX first-turn
+shapes (328/457/648/1033 prompt tokens, 128 output tokens). Three-run median
+total-time deltas ranged from 0.60% faster to 0.81% slower, TTFT regressed in
+all four cells, and every output hash differed from native. A true
+two-request probe failed closed and terminated the engine. Version 0.2.0 is
+therefore not performance-qualified. See
+`evidence/qwen35-agentx-v020-expanded-20261009/`.
+
+Historically, the retained v68 path passed clean-build component
+correctness/no-harm gates
 and two matched Qwen3.5-35B/AgentX single-request eager evaluations. The first
 formal bracket measured a 0.92% median end-to-end improvement and 1.09% lower
 median ITL; the clean-main retest measured 1.16% and 1.69%, respectively, but
 its independent bootstrap intervals overlap zero. These numbers apply only to
 the recorded TP2, 649-prompt/128-output first-turn workload. They are not a
 general online, graph-mode, multi-request, memory-capacity, or model-family
-claim.
+claim, and it is not inherited by version 0.2.0.
 
 An expanded four-shape AgentX round did not qualify a more aggressive
 boundary-refit path. A cheap preserve-compensator variant passed its component
@@ -91,6 +100,9 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `native/specs/`: frozen mechanism and admission contracts.
 - `evidence/qwen35-agentx-v68/`: summaries for the matched real-online result
   and clean-main retest.
+- `evidence/qwen35-agentx-v020-expanded-20261009/`: current-identity
+  four-shape matched online negative, output-hash comparison, concurrency
+  failure, and raw artifact bindings.
 - `evidence/qwen35-agentx-expanded-20261008/`: four-shape/concurrency probe,
   boundary-refit negative result, and immutable artifact bindings.
 - `evidence/paper-alignment-20261008/`: paper-aligned encoded Cube boundary,

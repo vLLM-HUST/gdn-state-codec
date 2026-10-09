@@ -13,14 +13,14 @@
   "advisors": [],
   "canonical_repository": "vLLM-HUST/gdn-state-codec",
   "repository_url": "https://github.com/vLLM-HUST/gdn-state-codec",
-  "status": "workload-qualified-experiment",
+  "status": "unqualified-experiment",
   "default_enabled": false,
   "runtime_modes": [
     "shadow",
     "replace"
   ],
-  "performance_qualified": true,
-  "qualification_scope": "Qwen3.5-35B-A3B TP2 eager, one AgentX first-turn request, 649 prompt tokens and 128 output tokens",
+  "performance_qualified": false,
+  "qualification_scope": "none for version 0.2.0; historical v68 evidence is retained but not inherited",
   "general_performance_claim": false,
   "supported_hardware": [
     "Ascend 910B2"
@@ -30,21 +30,20 @@
     "Qwen3.8 GDN family (mechanism only; not performance-qualified)"
   ],
   "latest_evidence": {
-    "date": "2026-10-08",
-    "label": "real-shadow-pass-online-negative",
-    "candidate": "p16/r1 direct initialization with zero-iteration boundary",
-    "correctness_gate": "pass",
-    "component_max_output_relative_rms": 0.010336713,
-    "real_shadow_max_relative_rms": 0.013344466,
-    "component_no_harm_gate": "pass",
-    "component_batched_time_ratio": 0.438021686,
-    "online_no_harm_gate": "fail",
-    "online_total_time_ratio_median": 1.067141,
-    "online_candidate_repetitions": 5,
-    "online_native_repetitions": 3,
-    "claim": "correct component optimization and real-shadow pass; tested replace-mode online request regressed"
+    "date": "2026-10-09",
+    "label": "matched-real-online-negative",
+    "candidate": "version 0.2.0 quant_only vector replace",
+    "exact_output_gate": "fail",
+    "output_hash_matches": 0,
+    "output_hash_cells": 4,
+    "online_no_harm_gate": "not-qualified",
+    "online_total_delta_pct_range": [-0.5967160579236186, 0.8061837834646646],
+    "online_repetitions_per_cell": 3,
+    "concurrency_two": "fail-closed and engine terminated",
+    "claim": "no stable end-to-end gain; all exact output hashes changed and multi-request decode is unsupported"
   },
   "evidence_index": [
+    "evidence/qwen35-agentx-v020-expanded-20261009/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-expanded-20261008/ROUND-RESULTS.md",
     "evidence/paper-alignment-20261008/ROUND-RESULTS.md",
