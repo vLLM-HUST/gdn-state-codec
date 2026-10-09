@@ -1,5 +1,5 @@
 {
-  "schema": "stateaxis-gdn_state_codec-qwen35-runtime-shadow-v1",
+  "schema": "gdn-state-codec-qwen35-runtime-shadow-v1",
   "version": "0.1.0",
   "status": "workload-qualified-experiment",
   "base_commit": "e74e9ece60e32a7a6e6a93f9f35c0e9ec4434596",

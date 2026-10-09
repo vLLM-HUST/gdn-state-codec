@@ -346,7 +346,7 @@ int main(int argc, char** argv) {
     initialized = false;
     return pass ? 0 : 1;
   } catch (const std::exception& error) {
-    std::cerr << "GdnStateCodec boundary probe failed: " << error.what() << '\n';
+    std::cerr << "GDN State Codec boundary probe failed: " << error.what() << '\n';
     if (stream != nullptr) (void)aclrtSynchronizeStream(stream);
     if (stream != nullptr) (void)aclrtDestroyStream(stream);
     if (device_set) (void)aclrtResetDevice(device);

@@ -25,26 +25,26 @@ void Require(bool condition, const char* message) {
 
 void ValidateParameters(const GdnStateCodecParameters& parameters) {
   Require(parameters.schema_version == 1,
-          "GdnStateCodec capsule schema version is unsupported");
+          "GDN State Codec capsule schema version is unsupported");
   Require(parameters.window_size == 16,
-          "GdnStateCodec capsule schema v1 fixes p=16");
+          "GDN State Codec capsule schema v1 fixes p=16");
   Require(parameters.compensator_rank == 4,
-          "GdnStateCodec capsule schema v1 fixes r=4");
+          "GDN State Codec capsule schema v1 fixes r=4");
   Require(parameters.quant_bits == 8,
-          "GdnStateCodec reference supports only symmetric INT8");
+          "GDN State Codec reference supports only symmetric INT8");
   Require(std::isfinite(parameters.smoothing_floor) &&
               parameters.smoothing_floor > 0.0F,
-          "GdnStateCodec smoothing floor must be finite and positive");
+          "GDN State Codec smoothing floor must be finite and positive");
 }
 
 void ValidateIdentity(const GdnStateCodecIdentity& identity) {
   Require(IsLowercaseSha256Hex(identity.model_geometry_sha256),
-          "GdnStateCodec model geometry digest is invalid");
+          "GDN State Codec model geometry digest is invalid");
   Require(identity.generation > 0,
-          "GdnStateCodec generation must be positive");
-  Require(identity.epoch > 0, "GdnStateCodec epoch must be positive");
+          "GDN State Codec generation must be positive");
+  Require(identity.epoch > 0, "GDN State Codec epoch must be positive");
   Require(identity.key_dimension > 0 && identity.value_dimension > 0,
-          "GdnStateCodec geometry must be nonzero");
+          "GDN State Codec geometry must be nonzero");
 }
 
 float Norm(std::span<const float> values) {
@@ -81,7 +81,7 @@ template <typename Integer>
 Integer ReadInteger(std::span<const std::uint8_t> input, std::size_t& offset) {
   static_assert(std::is_unsigned_v<Integer>);
   if (offset > input.size() || input.size() - offset < sizeof(Integer)) {
-    throw std::invalid_argument("GdnStateCodec capsule is truncated");
+    throw std::invalid_argument("GDN State Codec capsule is truncated");
   }
   Integer value = 0;
   for (std::size_t byte = 0; byte < sizeof(Integer); ++byte) {
@@ -102,7 +102,7 @@ void AppendFloats(std::vector<std::uint8_t>& output,
 std::vector<float> ReadFloats(std::span<const std::uint8_t> input,
                               std::size_t& offset, std::size_t count) {
   if (count > (input.size() - std::min(offset, input.size())) / sizeof(float)) {
-    throw std::invalid_argument("GdnStateCodec capsule float payload is truncated");
+    throw std::invalid_argument("GDN State Codec capsule float payload is truncated");
   }
   std::vector<float> values(count);
   for (float& value : values) value = ReadFloat(input, offset);
@@ -169,7 +169,7 @@ std::shared_ptr<const GdnStateCodecCapsule::Boundary> QuantizeBoundary(
       }
     }
     if (!std::isfinite(singular_value)) {
-      throw std::invalid_argument("GdnStateCodec compensator fit is non-finite");
+      throw std::invalid_argument("GDN State Codec compensator fit is non-finite");
     }
     for (std::size_t row = 0; row < keys; ++row) {
       boundary->compensator_keys[row * parameters.compensator_rank + rank] =
@@ -323,12 +323,12 @@ GdnStateCodecCapsule GdnStateCodecCapsule::FromDenseBoundary(
   Require(dense_state.size() ==
               static_cast<std::size_t>(identity.key_dimension) *
                   identity.value_dimension,
-          "GdnStateCodec dense state geometry differs");
+          "GDN State Codec dense state geometry differs");
   Require(parameters.compensator_rank <=
               std::min(identity.key_dimension, identity.value_dimension),
-          "GdnStateCodec compensator rank exceeds state geometry");
+          "GDN State Codec compensator rank exceeds state geometry");
   for (const float value : dense_state) {
-    Require(std::isfinite(value), "GdnStateCodec dense state is non-finite");
+    Require(std::isfinite(value), "GDN State Codec dense state is non-finite");
   }
   return GdnStateCodecCapsule(QuantizeBoundary(dense_state, identity, parameters),
                           std::move(identity), parameters, {});
@@ -358,11 +358,11 @@ GdnStateCodecStepResult GdnStateCodecCapsule::ApplyToken(
   Require(input.decay.size() == keys && input.key.size() == keys &&
               input.read.size() == keys && input.query.size() == keys &&
               input.value.size() == values,
-          "GdnStateCodec token geometry differs");
+          "GDN State Codec token geometry differs");
   Require(AllFinite(input.decay) && AllFinite(input.key) &&
               AllFinite(input.value) && AllFinite(input.read) &&
               AllFinite(input.query),
-          "GdnStateCodec token contains non-finite values");
+          "GDN State Codec token contains non-finite values");
   UpdateRecord update{input.decay, input.key, input.value};
   const auto state_read = ReadWindowState(*boundary_, updates_, input.read,
                                           identity_, parameters_);
@@ -381,11 +381,11 @@ GdnStateCodecStepResult GdnStateCodecCapsule::ApplyToken(
   for (std::size_t column = 0; column < values; ++column) {
     result.output[column] += update.correction[column] * update_projection;
   }
-  Require(AllFinite(result.output), "GdnStateCodec output is non-finite");
+  Require(AllFinite(result.output), "GDN State Codec output is non-finite");
   if (updates_.size() + 1 == parameters_.window_size) {
     updates_.push_back(std::move(update));
     std::vector<float> state = DenseState();
-    Require(AllFinite(state), "GdnStateCodec updated state is non-finite");
+    Require(AllFinite(state), "GDN State Codec updated state is non-finite");
     auto next_boundary = QuantizeBoundary(state, identity_, parameters_);
     boundary_ = std::move(next_boundary);
     updates_.clear();
@@ -439,7 +439,7 @@ std::size_t GdnStateCodecCapsule::branch_private_bytes() const noexcept {
 }
 
 void GdnStateCodecCapsule::RebindEpoch(std::uint64_t epoch) {
-  Require(epoch > 0, "GdnStateCodec rebound epoch must be positive");
+  Require(epoch > 0, "GDN State Codec rebound epoch must be positive");
   identity_.epoch = epoch;
 }
 
@@ -482,17 +482,17 @@ GdnStateCodecCapsule GdnStateCodecCapsule::Restore(
   ValidateIdentity(expected_identity);
   ValidateParameters(expected_parameters);
   Require(encoded.size() >= kMagic.size() + kDigestCharacters,
-          "GdnStateCodec capsule is too short");
+          "GDN State Codec capsule is too short");
   Require(std::equal(kMagic.begin(), kMagic.end(), encoded.begin()),
-          "GdnStateCodec capsule magic differs");
+          "GDN State Codec capsule magic differs");
   const std::size_t content_size = encoded.size() - kDigestCharacters;
   const std::string recorded_digest(
       reinterpret_cast<const char*>(encoded.data() + content_size),
       kDigestCharacters);
   Require(IsLowercaseSha256Hex(recorded_digest),
-          "GdnStateCodec capsule checksum encoding is invalid");
+          "GDN State Codec capsule checksum encoding is invalid");
   Require(BytesSha256(encoded.first(content_size)) == recorded_digest,
-          "GdnStateCodec capsule checksum differs");
+          "GDN State Codec capsule checksum differs");
 
   std::size_t offset = kMagic.size();
   GdnStateCodecParameters parameters;
@@ -509,34 +509,34 @@ GdnStateCodecCapsule GdnStateCodecCapsule::Restore(
   const auto update_count = ReadInteger<std::uint32_t>(encoded, offset);
   Require(offset <= content_size &&
               content_size - offset >= kDigestCharacters,
-          "GdnStateCodec capsule geometry digest is truncated");
+          "GDN State Codec capsule geometry digest is truncated");
   identity.model_geometry_sha256.assign(
       reinterpret_cast<const char*>(encoded.data() + offset),
       kDigestCharacters);
   offset += kDigestCharacters;
   Require(parameters == expected_parameters,
-          "GdnStateCodec capsule quantization parameters differ");
+          "GDN State Codec capsule quantization parameters differ");
   Require(identity == expected_identity,
-          "GdnStateCodec capsule identity or geometry differs");
+          "GDN State Codec capsule identity or geometry differs");
   Require(parameters.compensator_rank <=
               std::min(identity.key_dimension, identity.value_dimension),
-          "GdnStateCodec compensator rank exceeds restored geometry");
+          "GDN State Codec compensator rank exceeds restored geometry");
   Require(update_count < parameters.window_size,
-          "GdnStateCodec capsule window position is invalid");
+          "GDN State Codec capsule window position is invalid");
   Require(update_count == expected_window_position,
-          "GdnStateCodec capsule window phase differs");
+          "GDN State Codec capsule window phase differs");
 
   const std::size_t keys = identity.key_dimension;
   const std::size_t values = identity.value_dimension;
   const std::size_t state_elements = keys * values;
   Require(offset <= content_size && content_size - offset >= state_elements,
-          "GdnStateCodec capsule INT8 residual is truncated");
+          "GDN State Codec capsule INT8 residual is truncated");
   auto boundary = std::make_shared<Boundary>();
   boundary->residual.resize(state_elements);
   for (std::int8_t& value : boundary->residual) {
     value = std::bit_cast<std::int8_t>(encoded[offset++]);
     Require(value != std::numeric_limits<std::int8_t>::min(),
-            "GdnStateCodec INT8 residual contains -128");
+            "GDN State Codec INT8 residual contains -128");
   }
   boundary->smoothing = ReadFloats(encoded.first(content_size), offset, keys);
   boundary->value_scales =
@@ -557,7 +557,7 @@ GdnStateCodecCapsule GdnStateCodecCapsule::Restore(
                           [](float value) { return value >= 0.0F; }) &&
               AllFinite(boundary->compensator_keys) &&
               AllFinite(boundary->compensator_values),
-          "GdnStateCodec boundary payload is invalid");
+          "GDN State Codec boundary payload is invalid");
   std::vector<UpdateRecord> updates;
   updates.reserve(update_count);
   for (std::uint32_t index = 0; index < update_count; ++index) {
@@ -566,14 +566,14 @@ GdnStateCodecCapsule GdnStateCodecCapsule::Restore(
                        ReadFloats(encoded.first(content_size), offset, values)});
     Require(AllFinite(updates.back().decay) && AllFinite(updates.back().key) &&
                 AllFinite(updates.back().correction),
-            "GdnStateCodec update record is non-finite");
+            "GDN State Codec update record is non-finite");
   }
   Require(offset == content_size,
-          "GdnStateCodec capsule contains trailing unverified payload");
+          "GDN State Codec capsule contains trailing unverified payload");
   GdnStateCodecCapsule restored(std::move(boundary), std::move(identity),
                             parameters, std::move(updates));
   Require(AllFinite(restored.DenseState()),
-          "GdnStateCodec restored state is non-finite");
+          "GDN State Codec restored state is non-finite");
   return restored;
 }
 

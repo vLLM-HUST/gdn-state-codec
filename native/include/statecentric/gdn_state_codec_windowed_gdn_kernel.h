@@ -83,7 +83,7 @@ extern "C" std::int32_t statecentric_gdn_state_codec_bf16_cube_matmul_launch_v1(
     std::uint32_t states, void* workspace, void* tiling,
     std::uint32_t blocks);
 
-// Synthetic Cube ABI probe. This is not an end-to-end GdnStateCodec result.
+// Synthetic Cube ABI probe. This is not an end-to-end GDN State Codec result.
 extern "C" std::int32_t statecentric_gdn_state_codec_cube_matmul_probe_launch_v1(
     void* stream, const std::uint16_t* a, const std::uint16_t* b, float* c,
     std::uint32_t states, std::uint32_t transpose_a, void* workspace,
