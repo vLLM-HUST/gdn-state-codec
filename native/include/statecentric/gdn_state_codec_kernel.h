@@ -22,6 +22,14 @@ statecentric_gdn_state_codec_provider_quantize_launch_v2(
     void* stream, const float* provider_state, const float* smoothing,
     std::int8_t* quantized, float* value_scales, std::uint32_t states);
 
+// Host-side launch fusion for the two-stage provider initializer.  The
+// smoothing and quantization kernels remain ordered on the caller's stream,
+// while Python pays one FFI transition per layer instead of two.
+extern "C" std::int32_t
+statecentric_gdn_state_codec_provider_initialize_launch_v3(
+    void* stream, const float* provider_state, float* smoothing,
+    std::int8_t* quantized, float* value_scales, std::uint32_t states);
+
 extern "C" std::int32_t statecentric_gdn_state_codec_dequantize_launch_v1(
     void* stream, const std::int8_t* quantized, const float* smoothing,
     const float* value_scales, const float* compensator_keys,

@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.20)
 project(statecentric_gdn_state_codec LANGUAGES CXX)
 
+# The legacy AscendC merge helper requires a non-empty build type. Without a
+# default it is invoked with a missing --build-type value and fresh builds fail
+# after device compilation even though the source is valid.
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -87,6 +94,23 @@ find_library(ASCENDCL_LIBRARY NAMES ascendcl
              PATHS "${ASCEND_HOME_PATH}/${CANN_ARCH}/lib64"
              NO_DEFAULT_PATH REQUIRED)
 
+add_library(statecentric_gdn_state_codec_provider_runtime SHARED
+            host/gdn_state_codec_provider_runtime.cpp)
+target_include_directories(
+  statecentric_gdn_state_codec_provider_runtime
+  PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../include")
+target_link_libraries(
+  statecentric_gdn_state_codec_provider_runtime
+  PRIVATE statecentric_gdn_state_codec_smoothing_kernel
+          statecentric_gdn_state_codec_quantize_kernel)
+target_compile_options(
+  statecentric_gdn_state_codec_provider_runtime
+  PRIVATE -Wall -Wextra -Wpedantic -Werror)
+set_target_properties(
+  statecentric_gdn_state_codec_provider_runtime
+  PROPERTIES BUILD_RPATH "${CMAKE_CURRENT_BINARY_DIR}/lib"
+             LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
+
 add_executable(statecentric_gdn_state_codec_runtime_probe
                host/gdn_state_codec_runtime_probe.cpp)
 target_include_directories(
@@ -121,6 +145,7 @@ target_link_libraries(
   statecentric_gdn_state_codec_provider_quantize_probe
   PRIVATE statecentric_gdn_state_codec_smoothing_kernel
           statecentric_gdn_state_codec_quantize_kernel
+          statecentric_gdn_state_codec_provider_runtime
           "${ASCENDCL_LIBRARY}")
 target_compile_options(
   statecentric_gdn_state_codec_provider_quantize_probe

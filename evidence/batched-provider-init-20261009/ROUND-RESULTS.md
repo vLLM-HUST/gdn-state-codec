@@ -50,3 +50,30 @@ level (`0` mismatches) and passes with reconstruction RMS `0.0135034`.
 
 Admit the candidate to StateAxis shadow and matched online gates. Do not claim
 an online improvement from this component result alone.
+
+## Combined host ABI follow-up
+
+ABI v3 adds a host-only wrapper that launches the unchanged v2 smoothing and
+quantization kernels on the caller's stream. It does not claim device-kernel
+fusion. A fresh default-configured build now selects `Release`, because the
+legacy CANN merge helper fails when `CMAKE_BUILD_TYPE` is empty.
+
+The extended alternating-order probe passed on both visible devices, rejected
+zero states, and preserved the same `0.00738162` reconstruction relative RMS:
+
+| device | split median | combined median |
+| ---: | ---: | ---: |
+| 0 | 68.011 us | 68.041 us |
+| 1 | 67.930 us | 68.011 us |
+
+As expected, synchronized device time is unchanged. For the model-shaped
+16-state tensors, 200 Python `ctypes` submissions on device 0 reduced median
+host enqueue time from `21.2805 us` to `17.3800 us` (`18.33%`). This is about
+`3.90 us` per initialized GDN layer and is too small on its own to establish
+an online improvement.
+
+A separate attempt to pack same-dtype Python workspaces into contiguous slabs
+was rejected and reverted: full synchronized initialization regressed from
+`537.811 us` to `623.188 us` per layer (`+15.88%`). The Python slice/view
+construction cost exceeded allocator savings. `RESULTS.json` records both the
+retained ABI result and this negative result with artifact hashes.

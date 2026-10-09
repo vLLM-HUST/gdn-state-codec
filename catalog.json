@@ -42,7 +42,18 @@
     "concurrency_two": "fail-closed and engine terminated",
     "claim": "no stable end-to-end gain; all exact output hashes changed and multi-request decode is unsupported"
   },
+  "component_candidates": [
+    {
+      "date": "2026-10-09",
+      "name": "batched provider-state initialization with combined host ABI",
+      "status": "component-correct-online-unqualified",
+      "scope": "Qwen3.5-35B-A3B TP2 local 16x128x128 state on Ascend 910B2",
+      "result": "0.738162% reconstruction RMS; about 68 us synchronized device time; combined ABI reduced Python host submission by 3.90 us per initialized layer",
+      "evidence": "evidence/batched-provider-init-20261009/ROUND-RESULTS.md"
+    }
+  ],
   "evidence_index": [
+    "evidence/batched-provider-init-20261009/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-v020-expanded-20261009/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-v68/ROUND-RESULTS.md",
     "evidence/qwen35-agentx-expanded-20261008/ROUND-RESULTS.md",

@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     DeviceBuffer<std::int8_t> quantized_device(provider.size());
     ToDevice(provider_device, provider);
 
-    auto launch = [&] {
+    auto launch_split = [&] {
       if (statecentric_gdn_state_codec_provider_smoothing_launch_v2(
               stream, provider_device.data(), smoothing_device.data(),
               kStates) != 0 ||
@@ -105,7 +105,19 @@ int main(int argc, char** argv) {
         throw std::runtime_error("provider quantize admission failed");
       }
     };
-    launch();
+    auto launch_combined = [&] {
+      if (statecentric_gdn_state_codec_provider_initialize_launch_v3(
+              stream, provider_device.data(), smoothing_device.data(),
+              quantized_device.data(), scales_device.data(), kStates) != 0) {
+        throw std::runtime_error("combined provider initializer failed");
+      }
+    };
+    if (statecentric_gdn_state_codec_provider_initialize_launch_v3(
+            stream, provider_device.data(), smoothing_device.data(),
+            quantized_device.data(), scales_device.data(), 0) == 0) {
+      throw std::runtime_error("combined provider initializer admitted zero states");
+    }
+    launch_combined();
     Check(aclrtSynchronizeStream(stream), "sync exactness");
     const auto smoothing =
         FromDevice(smoothing_device, kStates * kKeys);
@@ -170,23 +182,52 @@ int main(int argc, char** argv) {
           std::to_string(relative_rms));
     }
 
-    for (int warmup = 0; warmup < 5; ++warmup) launch();
+    for (int warmup = 0; warmup < 5; ++warmup) {
+      launch_split();
+      launch_combined();
+    }
     Check(aclrtSynchronizeStream(stream), "sync warmup");
-    std::vector<double> elapsed_us;
+    std::vector<double> split_elapsed_us;
+    std::vector<double> combined_elapsed_us;
     for (int repeat = 0; repeat < 101; ++repeat) {
       Check(aclrtSynchronizeStream(stream), "sync before");
       const auto begin = std::chrono::steady_clock::now();
-      launch();
-      Check(aclrtSynchronizeStream(stream), "sync after");
-      elapsed_us.push_back(std::chrono::duration<double, std::micro>(
-                               std::chrono::steady_clock::now() - begin)
-                               .count());
+      if (repeat % 2 == 0) {
+        launch_split();
+        Check(aclrtSynchronizeStream(stream), "sync split");
+        split_elapsed_us.push_back(std::chrono::duration<double, std::micro>(
+                                       std::chrono::steady_clock::now() - begin)
+                                       .count());
+        const auto combined_begin = std::chrono::steady_clock::now();
+        launch_combined();
+        Check(aclrtSynchronizeStream(stream), "sync combined");
+        combined_elapsed_us.push_back(
+            std::chrono::duration<double, std::micro>(
+                std::chrono::steady_clock::now() - combined_begin)
+                .count());
+      } else {
+        launch_combined();
+        Check(aclrtSynchronizeStream(stream), "sync combined");
+        combined_elapsed_us.push_back(std::chrono::duration<double, std::micro>(
+                                          std::chrono::steady_clock::now() - begin)
+                                          .count());
+        const auto split_begin = std::chrono::steady_clock::now();
+        launch_split();
+        Check(aclrtSynchronizeStream(stream), "sync split");
+        split_elapsed_us.push_back(
+            std::chrono::duration<double, std::micro>(
+                std::chrono::steady_clock::now() - split_begin)
+                .count());
+      }
     }
     std::cout << "{\"device\":" << device << ",\"states\":" << kStates
               << ",\"geometry\":\"128x128\""
+              << ",\"invalid_zero_states_rejected\":true"
               << ",\"quantized_mismatches\":" << quantized_mismatches
               << ",\"relative_rms\":" << relative_rms
-              << ",\"median_us\":" << Median(elapsed_us) << "}\n";
+              << ",\"split_median_us\":" << Median(split_elapsed_us)
+              << ",\"combined_median_us\":" << Median(combined_elapsed_us)
+              << "}\n";
 
     Check(aclrtDestroyStream(stream), "aclrtDestroyStream");
     stream = nullptr;

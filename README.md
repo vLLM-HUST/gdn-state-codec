@@ -129,6 +129,7 @@ Ascend 910B2:
 
 ```bash
 cmake -S native/ascendc/gdn_state_codec -B build-ascend \
+  -DCMAKE_BUILD_TYPE=Release \
   -DASCEND_HOME_PATH=/usr/local/Ascend/cann-9.1.0 \
   -DSOC_VERSION=ascend910b2
 cmake --build build-ascend --parallel
