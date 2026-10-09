@@ -44,6 +44,13 @@
   "rank1_fast_boundary_repository_evidence_sha256": "1537de836a84684e3bdd3947e7bd17b278f97f0423407d8902e5ccb453a4d29e",
   "rank1_fast_boundary_local_summary_sha256": "354065ef78a492fb1cc3ee474af524c3687bd75e2efccba8e49df1fc53557019",
   "rank1_fast_boundary_local_manifest_sha256": "4a1b47cc0a57de4b13cd7fce37b8921597677e8e2dd01c708f3698c274f9c98f",
-  "metadata_updated_at": "2026-10-09T01:56:42Z",
+  "v020_expanded_stateaxis_commit": "588decd53002a3da9f39f79656898bf4fea463ee",
+  "v020_expanded_measured_mod_commit": "c7faafe98298ef620f47fcf03bf1a7b30f36bccb",
+  "v020_expanded_round_summary_sha256": "261424b1f7a9a540c1eff05f3b2cae227e7cf40c5d34719d43540c18b3e0edb8",
+  "v020_expanded_results_sha256": "404da7db059b68f97522e7a13534fc8878150c21b5aa3326d2f3af897f35af32",
+  "v020_expanded_native_raw_sha256": "1e586fae611b414b38755ab2c42dccc3f2be62975e5b5561619b80e931a5b5fb",
+  "v020_expanded_candidate_raw_sha256": "a362c0d21b2def3e0560d72166493dc15a1021919b307abe0c240408bdd90d08",
+  "v020_expanded_concurrency_negative_sha256": "558e52e38a174b54a772a00dbc7731a990400fa8a599ab56b78e60db5d568d3d",
+  "metadata_updated_at": "2026-10-09T03:14:00Z",
   "license": "Apache-2.0"
 }
