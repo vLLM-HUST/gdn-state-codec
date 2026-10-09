@@ -109,6 +109,27 @@ set_target_properties(
   PROPERTIES BUILD_RPATH
              "${CMAKE_CURRENT_BINARY_DIR}/lib;${ASCEND_HOME_PATH}/${CANN_ARCH}/lib64")
 
+add_executable(statecentric_gdn_state_codec_provider_quantize_probe
+               host/gdn_state_codec_provider_quantize_probe.cpp)
+target_include_directories(
+  statecentric_gdn_state_codec_provider_quantize_probe
+  PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../include")
+target_include_directories(
+  statecentric_gdn_state_codec_provider_quantize_probe
+  SYSTEM PRIVATE "${ASCENDCL_INCLUDE_DIR}")
+target_link_libraries(
+  statecentric_gdn_state_codec_provider_quantize_probe
+  PRIVATE statecentric_gdn_state_codec_smoothing_kernel
+          statecentric_gdn_state_codec_quantize_kernel
+          "${ASCENDCL_LIBRARY}")
+target_compile_options(
+  statecentric_gdn_state_codec_provider_quantize_probe
+  PRIVATE -Wall -Wextra -Wpedantic -Werror)
+set_target_properties(
+  statecentric_gdn_state_codec_provider_quantize_probe
+  PROPERTIES BUILD_RPATH
+             "${CMAKE_CURRENT_BINARY_DIR}/lib;${ASCEND_HOME_PATH}/${CANN_ARCH}/lib64")
+
 add_executable(statecentric_gdn_state_codec_windowed_gdn_runtime_probe
                host/gdn_state_codec_windowed_gdn_runtime_probe.cpp)
 target_include_directories(
