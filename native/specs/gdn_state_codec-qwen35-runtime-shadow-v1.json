@@ -50,19 +50,6 @@
       "multi-request decode",
       "graph capture"
     ],
-    "matched_e2e_result": {
-      "evidence_label": "real-online-single-request-workload-qualified",
-      "candidate_lifecycles": 2,
-      "candidate_measurements": 12,
-      "baseline_lifecycles": 1,
-      "baseline_measurements": 6,
-      "candidate_total_seconds_median": 28.416406604461372,
-      "baseline_total_seconds_median": 28.68074907315895,
-      "total_seconds_delta_percent": -0.9216721223817781,
-      "candidate_itl_median_ms": 219.94092408567667,
-      "baseline_itl_median_ms": 222.36076090484858,
-      "itl_delta_percent": -1.0882481285479084,
-      "content_sha256": "2035b0e9d6d6de9c4fcc6a4adeb0574e198ddbfb66c3cc93c257377659e465ee"
-    }
+    "matched_e2e_result_source": "https://github.com/vLLM-HUST/vllm-hust-benchmark/blob/819b1975f346dca514f58880ca62518850100b2d/archive/mod-git-20261022/gdn-state-codec/snapshot/native/specs/gdn_state_codec-qwen35-runtime-shadow-v1.json"
   }
 }

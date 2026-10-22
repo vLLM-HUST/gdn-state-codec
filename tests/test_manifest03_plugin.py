@@ -18,8 +18,7 @@ from gdn_state_codec.config import parse_gdn_state_codec_experiment
 
 def _manifest() -> dict[str, object]:
     path = (
-        Path(__file__).parents[1]
-        / "src/gdn_state_codec/manifests/"
+        Path(__file__).parents[1] / "src/gdn_state_codec/manifests/"
         "vllm-hust-extension-v0.3.json"
     )
     return json.loads(path.read_text(encoding="utf-8"))
@@ -51,9 +50,9 @@ def test_manifest03_declares_matching_manager_and_vllm_entry_points() -> None:
     assert manifest["activation"]["entry_points"] == [
         {"group": "vllm.general_plugins", "name": "gdn_state_codec"}
     ]
-    assert manifest["activation"]["environment"][
-        "VLLM_HUST_GDN_STATE_CODEC_ENABLE"
-    ] == "0"
+    assert (
+        manifest["activation"]["environment"]["VLLM_HUST_GDN_STATE_CODEC_ENABLE"] == "0"
+    )
 
 
 def test_manifest_pyproject_and_package_identity_are_aligned() -> None:
@@ -64,9 +63,10 @@ def test_manifest_pyproject_and_package_identity_are_aligned() -> None:
     assert project["project"]["entry-points"]["vllm.general_plugins"] == {
         "gdn_state_codec": "gdn_state_codec.plugin:register"
     }
-    assert "org.vllm-hust.gdn-state-codec" in project["project"]["entry-points"][
-        "vllm_hust.extension_bundles"
-    ]
+    assert (
+        "org.vllm-hust.gdn-state-codec"
+        in project["project"]["entry-points"]["vllm_hust.extension_bundles"]
+    )
 
 
 def test_mod_metadata_keeps_the_template_lifecycle_contract() -> None:

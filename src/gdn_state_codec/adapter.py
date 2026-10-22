@@ -34,8 +34,7 @@ def _guard_host(host_class: Any) -> None:
     missing = [marker for marker in _EXPECTED_SOURCE_MARKERS if marker not in source]
     if missing:
         raise RuntimeError(
-            "gdn_state_codec host source guard failed; missing markers: "
-            f"{missing}"
+            f"gdn_state_codec host source guard failed; missing markers: {missing}"
         )
 
 
@@ -121,9 +120,7 @@ class _AfterAscendFinder(importlib.abc.MetaPathFinder):
 
 def _remove_deferred_finder() -> None:
     sys.meta_path[:] = [
-        finder
-        for finder in sys.meta_path
-        if not getattr(finder, _FINDER_MARKER, False)
+        finder for finder in sys.meta_path if not getattr(finder, _FINDER_MARKER, False)
     ]
 
 

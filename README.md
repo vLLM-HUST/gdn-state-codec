@@ -28,68 +28,12 @@ evidence digests. This repository is the authoritative home of the mod.
 
 `unqualified-experiment` — disabled by default.
 
-The current 0.2.0 identity was retested on four Qwen3.5-35B/AgentX first-turn
-shapes (328/457/648/1033 prompt tokens, 128 output tokens). Three-run median
-total-time deltas ranged from 0.60% faster to 0.81% slower, TTFT regressed in
-all four cells, and every output hash differed from native. A true
-two-request probe failed closed and terminated the engine. Version 0.2.0 is
-therefore not performance-qualified. See
-`evidence/qwen35-agentx-v020-expanded-20261009/`.
-
-Historically, the retained v68 path passed clean-build component
-correctness/no-harm gates
-and two matched Qwen3.5-35B/AgentX single-request eager evaluations. The first
-formal bracket measured a 0.92% median end-to-end improvement and 1.09% lower
-median ITL; the clean-main retest measured 1.16% and 1.69%, respectively, but
-its independent bootstrap intervals overlap zero. These numbers apply only to
-the recorded TP2, 649-prompt/128-output first-turn workload. They are not a
-general online, graph-mode, multi-request, memory-capacity, or model-family
-claim, and it is not inherited by version 0.2.0.
-
-An expanded four-shape AgentX round did not qualify a more aggressive
-boundary-refit path. A cheap preserve-compensator variant passed its component
-gate and reached step 65 instead of step 22, but then exceeded the unchanged
-2% real-shadow RMS limit. Exact SVD passed real-shadow correctness but was far
-too expensive. No replace-mode or end-to-end speedup claim was made. See
-`evidence/qwen35-agentx-expanded-20261008/` for the negative result and bound
-artifact hashes.
-
-A subsequent paper-alignment round implemented an every-window rank-four
-power-iteration refit directly from the encoded state on Ascend Cube. On a
-frozen Qwen3.5-35B AgentX layer-0 fixture, one power iteration kept boundary
-reconstruction RMS at `7.23e-05`; an 82-step production-operator comparison
-passed the 2% correctness gate with `0.884%` maximum output RMS. The compressed
-steady step took `0.566x` the native time, but five boundary refits made the
-matched 82-step total `1.583x` native, so the no-harm gate failed. This path is
-not enabled and does not replace the narrowly qualified v68 result above. See
-`evidence/paper-alignment-20261008/` for the source comparison, profiler
-breakdown, hashes, and decision.
-
-A follow-up rank scan found that one fitted compensator remained inside the
-2% exactness gate for the frozen Qwen3.5-35B/AgentX layer-0 fixture. Tracking
-the active old rank then removed three unused factor paths after the first
-boundary. Three alternating-order 82-step component repetitions measured a
-median `0.9767x` compressed/native ratio (about `2.33%` lower elapsed time),
-with `0.9449%` maximum output RMS. This is a component candidate only: it is
-still disabled and needs longer randomized and real-online validation. See
-`evidence/rank1-active-rank-20261008/`.
-
-The next round initialized the fixed rank-four ABI directly at fitted rank one
-and tested the zero-iteration fast boundary. On the 82-step TP-local component
-gate it measured `0.4380x` native elapsed time (about `56.2%` lower) with
-`1.034%` maximum output RMS. It also completed a harder 328-prompt/128-output
-AgentX real-shadow request across all Qwen3.5-35B GDN layers with `1.334%`
-worst logged RMS. Replace mode did not qualify: five repetitions had a
-`30.680 s` median versus `28.750 s` for native (`+6.71%`), despite similar
-median ITL. The result is therefore a correct component optimization and an
-online negative, not a new end-to-end claim. Quant-only was faster in the
-component probe but failed real shadow at layer 18, step 70 (`2.393%`). See
-`evidence/rank1-fast-boundary-20261008/`.
-
-The old 576-head boundary-scan/refit prototype failed the no-harm gate by more
-than two orders of magnitude. Its patch and negative measurements remain under
-`evidence/all-head-negative-m2/`; the exact archived StateAxis commit is also
-preserved as an mbox patch under `archive/`. It is evidence, not active code.
+The active identity remains performance-unqualified: output exactness and
+multi-request support did not qualify. Historical eager-only observations,
+component candidates, failed gates and rejected prototypes remain separate
+in [the original report](https://github.com/vLLM-HUST/vllm-hust-benchmark/blob/819b1975f346dca514f58880ca62518850100b2d/archive/mod-git-20261022/gdn-state-codec/snapshot/README.md). They are not inherited by the
+current MOD or promoted to formal graph-mode serving claims.
+See [EVIDENCE.md](EVIDENCE.md) for verified access to every original record.
 
 ## Layout
 
@@ -98,23 +42,9 @@ preserved as an mbox patch under `archive/`. It is evidence, not active code.
 - `native/include`, `native/src`, `native/tests`: portable state-capsule and
   Qwen GDN mapping reference with exactness/lifecycle tests.
 - `native/specs/`: frozen mechanism and admission contracts.
-- `evidence/qwen35-agentx-v68/`: summaries for the matched real-online result
-  and clean-main retest.
-- `evidence/ecpa-manager03-launch-20261009/`: real Manager 0.3 discovery,
-  activation, TP2 worker-effectiveness, request, and shutdown smoke evidence.
-- `evidence/qwen35-agentx-v020-expanded-20261009/`: current-identity
-  four-shape matched online negative, output-hash comparison, concurrency
-  failure, and raw artifact bindings.
-- `evidence/qwen35-agentx-expanded-20261008/`: four-shape/concurrency probe,
-  boundary-refit negative result, and immutable artifact bindings.
-- `evidence/paper-alignment-20261008/`: paper-aligned encoded Cube boundary,
-  model-derived scan, matched 82-step gate, and profiler conclusion.
-- `evidence/rank1-active-rank-20261008/`: rank scan, active-old-rank
-  specialization, repeated alternating-order matched component result.
-- `evidence/rank1-fast-boundary-20261008/`: direct rank-one initialization,
-  fast-boundary real-shadow pass, matched online negative, and rejected
-  quant-only result.
-- `evidence/all-head-negative-m2/`: preserved rejected all-head experiment.
+- [EVIDENCE.md](EVIDENCE.md): canonical benchmark originals and integrity checks.
+- `evidence/all-head-negative-m2/vectorized-prototype.patch`: retained
+  rejected prototype source, not active runtime code.
 - `tools/agentx_online_probe.py`: overwrite-safe streaming AgentX probe that
   rejects truncated HTTP-200 SSE responses.
 
