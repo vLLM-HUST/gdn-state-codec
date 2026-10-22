@@ -48,24 +48,8 @@ INT8 codes against a deterministic host oracle.  It then reports relative RMS
 against residual plus the supplied rank-4 product.  This RMS is quantization
 error, not model-quality evidence.
 
-## Hardware screen (2026-10-06)
+## Historical evidence
 
-Five independent probe processes ran on an idle physical Ascend 910B2 NPU 6,
-exposed as device 0, with CANN 9.1.0.  Every run reported zero code mismatch
-and relative RMS `0.0135034`.  The median of the five per-process medians was:
-
-| Path | M0 single-core UB | M1 row/column parallel UB | M1/M0 |
-| --- | ---: | ---: | ---: |
-| smoothing + quantize | 1424.88 us/head | 90.481 us/head | 15.75x faster |
-| dequantize + rank-4 reconstruct | 1165.09 us/head | 49.181 us/head | 23.69x faster |
-
-These timings do not yet clear the no-harm gate.  The existing copy-only
-screen moved the complete 576-head raw state in about 71.991 us, so a
-sequential per-head codec is not a viable checkpoint-copy replacement.  A
-single all-head batched kernel must amortize launch/synchronization and prove
-that codec plus compressed transfer is cheaper than raw transfer.  Rank-4
-fitting cost must then be added before any runtime admission decision.
-
-Evidence is archived outside the repository at
-`/root/stateaxis-evidence/gdn_state_codec/2026-10-06-qwen-gdn-device-codec-m0` and
-`/root/stateaxis-evidence/gdn_state_codec/2026-10-06-qwen-gdn-device-codec-m1`.
+The [original report](https://github.com/vLLM-HUST/vllm-hust-benchmark/blob/819b1975f346dca514f58880ca62518850100b2d/archive/mod-git-20261022/gdn-state-codec/snapshot/native/specs/GDN_STATE_CODEC_QWEN38_DEVICE_CODEC_M1.md) preserves measured tables, failed gates,
+source identities and limitations. These component and eager-only observations
+are historical, not qualification of the current MOD. No metrics are copied here.

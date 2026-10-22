@@ -9,9 +9,9 @@ class _Response:
     status = 200
 
     def __init__(self, events: list[dict[str, object]]) -> None:
-        self._lines = [
-            f"data: {json.dumps(event)}\n".encode() for event in events
-        ] + [b"data: [DONE]\n"]
+        self._lines = [f"data: {json.dumps(event)}\n".encode() for event in events] + [
+            b"data: [DONE]\n"
+        ]
 
     def __enter__(self):
         return self
@@ -24,10 +24,12 @@ class _Response:
 
 
 def test_stream_request_marks_truncated_http_200_as_error(monkeypatch):
-    response = _Response(
-        [{"choices": [{"delta": {"content": "partial"}}]}]
+    response = _Response([{"choices": [{"delta": {"content": "partial"}}]}])
+    monkeypatch.setattr(
+        agentx_online_probe.urllib.request,
+        "urlopen",
+        lambda *_args, **_kwargs: response,
     )
-    monkeypatch.setattr(agentx_online_probe.urllib.request, "urlopen", lambda *_args, **_kwargs: response)
 
     result = agentx_online_probe.stream_request(
         "http://example.invalid", "model", [{"role": "user", "content": "x"}], 8, 1.0
@@ -48,7 +50,11 @@ def test_stream_request_accepts_terminal_usage_and_finish(monkeypatch):
             },
         ]
     )
-    monkeypatch.setattr(agentx_online_probe.urllib.request, "urlopen", lambda *_args, **_kwargs: response)
+    monkeypatch.setattr(
+        agentx_online_probe.urllib.request,
+        "urlopen",
+        lambda *_args, **_kwargs: response,
+    )
 
     result = agentx_online_probe.stream_request(
         "http://example.invalid", "model", [{"role": "user", "content": "x"}], 8, 1.0

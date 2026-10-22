@@ -1,0 +1,12 @@
+{
+  "repository": "vLLM-HUST/vllm-hust-benchmark",
+  "commit": "819b1975f346dca514f58880ca62518850100b2d",
+  "source_repository": "vLLM-HUST/gdn-state-codec",
+  "source_commit": "14c0098b9339464587e03650060da219517a8dc9",
+  "manifest": {
+    "path": "archive/mod-git-20261022/gdn-state-codec/manifest.json",
+    "bytes": 7103,
+    "sha256": "b3a4c5a59fbeb06fb6c9c78b3163b88a5ec794796ec88b08be2d31ae4df7f591"
+  },
+  "snapshot": "archive/mod-git-20261022/gdn-state-codec/snapshot"
+}

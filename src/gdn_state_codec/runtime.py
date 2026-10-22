@@ -69,8 +69,7 @@ class _GdnStateCodecLibraries:
                 ctypes.CDLL(str(dependency), mode=ctypes.RTLD_GLOBAL)
             )
         library = (
-            library_dir
-            / "libstatecentric_gdn_state_codec_windowed_gdn_step_kernel.so"
+            library_dir / "libstatecentric_gdn_state_codec_windowed_gdn_step_kernel.so"
         )
         if not library.is_file():
             raise RuntimeError(f"GDN State Codec kernel library is missing: {library}")
@@ -86,9 +85,7 @@ class _GdnStateCodecLibraries:
             None,
         )
         if self.window_step_bf16 is not None:
-            self.window_step_bf16.argtypes = (
-                [ctypes.c_void_p] * 16 + [ctypes.c_uint32]
-            )
+            self.window_step_bf16.argtypes = [ctypes.c_void_p] * 16 + [ctypes.c_uint32]
             self.window_step_bf16.restype = ctypes.c_int32
         self.window_step_bf16_quant_only = getattr(
             self._window,
@@ -96,13 +93,12 @@ class _GdnStateCodecLibraries:
             None,
         )
         if self.window_step_bf16_quant_only is not None:
-            self.window_step_bf16_quant_only.argtypes = (
-                [ctypes.c_void_p] * 16 + [ctypes.c_uint32]
-            )
+            self.window_step_bf16_quant_only.argtypes = [ctypes.c_void_p] * 16 + [
+                ctypes.c_uint32
+            ]
             self.window_step_bf16_quant_only.restype = ctypes.c_int32
         boundary_library = (
-            library_dir
-            / "libstatecentric_gdn_state_codec_window_boundary_kernel.so"
+            library_dir / "libstatecentric_gdn_state_codec_window_boundary_kernel.so"
         )
         if not boundary_library.is_file():
             raise RuntimeError(
@@ -112,10 +108,10 @@ class _GdnStateCodecLibraries:
         self.window_boundary = (
             self._boundary.statecentric_gdn_state_codec_window_boundary_launch_v1
         )
-        self.window_boundary.argtypes = (
-            [ctypes.c_void_p] * 16
-            + [ctypes.c_uint32, ctypes.c_uint32]
-        )
+        self.window_boundary.argtypes = [ctypes.c_void_p] * 16 + [
+            ctypes.c_uint32,
+            ctypes.c_uint32,
+        ]
         self.window_boundary.restype = ctypes.c_int32
         self.window_boundary_cube_finish = getattr(
             self._boundary,
@@ -123,9 +119,9 @@ class _GdnStateCodecLibraries:
             None,
         )
         if self.window_boundary_cube_finish is not None:
-            self.window_boundary_cube_finish.argtypes = (
-                [ctypes.c_void_p] * 16 + [ctypes.c_uint32]
-            )
+            self.window_boundary_cube_finish.argtypes = [ctypes.c_void_p] * 16 + [
+                ctypes.c_uint32
+            ]
             self.window_boundary_cube_finish.restype = ctypes.c_int32
         self.boundary_runtime_step = None
         self._boundary_runtime_create = None
@@ -135,30 +131,28 @@ class _GdnStateCodecLibraries:
             library_dir / "libstatecentric_gdn_state_codec_boundary_runtime.so"
         )
         if boundary_runtime_library.is_file():
-            self._boundary_runtime = ctypes.CDLL(
-                str(boundary_runtime_library)
-            )
+            self._boundary_runtime = ctypes.CDLL(str(boundary_runtime_library))
+            runtime = self._boundary_runtime
             self._boundary_runtime_create = (
-                self._boundary_runtime
-                .statecentric_gdn_state_codec_boundary_runtime_create_v1
+                runtime.statecentric_gdn_state_codec_boundary_runtime_create_v1
             )
             self._boundary_runtime_create.argtypes = [ctypes.c_uint32]
             self._boundary_runtime_create.restype = ctypes.c_void_p
             self._boundary_runtime_destroy = (
-                self._boundary_runtime
-                .statecentric_gdn_state_codec_boundary_runtime_destroy_v1
+                runtime.statecentric_gdn_state_codec_boundary_runtime_destroy_v1
             )
             self._boundary_runtime_destroy.argtypes = [ctypes.c_void_p]
             self._boundary_runtime_destroy.restype = None
             self.boundary_runtime_step = (
-                self._boundary_runtime
-                .statecentric_gdn_state_codec_boundary_runtime_step_v1
+                runtime.statecentric_gdn_state_codec_boundary_runtime_step_v1
             )
-            self.boundary_runtime_step.argtypes = (
-                [ctypes.c_void_p] * 7 + [ctypes.c_uint32]
-            )
+            self.boundary_runtime_step.argtypes = [ctypes.c_void_p] * 7 + [
+                ctypes.c_uint32
+            ]
             self.boundary_runtime_step.restype = ctypes.c_int32
-        decode_library = library_dir / "libstatecentric_gdn_state_codec_decode_runtime.so"
+        decode_library = (
+            library_dir / "libstatecentric_gdn_state_codec_decode_runtime.so"
+        )
         self.decode_runtime_step = None
         self._decode_runtime_create = None
         self._decode_runtime_destroy = None
@@ -178,9 +172,9 @@ class _GdnStateCodecLibraries:
             self.decode_runtime_step = (
                 self._decode.statecentric_gdn_state_codec_decode_runtime_step_v1
             )
-            self.decode_runtime_step.argtypes = (
-                [ctypes.c_void_p] * 17 + [ctypes.c_uint32]
-            )
+            self.decode_runtime_step.argtypes = [ctypes.c_void_p] * 17 + [
+                ctypes.c_uint32
+            ]
             self.decode_runtime_step.restype = ctypes.c_int32
 
         self.provider_smoothing = None
@@ -227,22 +221,19 @@ class _GdnStateCodecLibraries:
 
         self.provider_initialize = None
         provider_runtime_library = (
-            library_dir
-            / "libstatecentric_gdn_state_codec_provider_runtime.so"
+            library_dir / "libstatecentric_gdn_state_codec_provider_runtime.so"
         )
         if provider_runtime_library.is_file():
-            self._provider_runtime = ctypes.CDLL(
-                str(provider_runtime_library)
-            )
+            self._provider_runtime = ctypes.CDLL(str(provider_runtime_library))
             self.provider_initialize = getattr(
                 self._provider_runtime,
                 "statecentric_gdn_state_codec_provider_initialize_launch_v3",
                 None,
             )
             if self.provider_initialize is not None:
-                self.provider_initialize.argtypes = (
-                    [ctypes.c_void_p] * 5 + [ctypes.c_uint32]
-                )
+                self.provider_initialize.argtypes = [ctypes.c_void_p] * 5 + [
+                    ctypes.c_uint32
+                ]
                 self.provider_initialize.restype = ctypes.c_int32
 
     def decode_handle(self, states: int) -> int | None:
@@ -251,7 +242,9 @@ class _GdnStateCodecLibraries:
         if self._decode_handle is None:
             handle = self._decode_runtime_create(ctypes.c_uint32(states))
             if not handle:
-                raise RuntimeError("GDN State Codec Cube decode runtime creation failed")
+                raise RuntimeError(
+                    "GDN State Codec Cube decode runtime creation failed"
+                )
             self._decode_handle = int(handle)
         return self._decode_handle
 
@@ -268,19 +261,14 @@ class _GdnStateCodecLibraries:
         return self._boundary_handle
 
     def close(self) -> None:
-        if (
-            self._decode_handle is not None
-            and self._decode_runtime_destroy is not None
-        ):
+        if self._decode_handle is not None and self._decode_runtime_destroy is not None:
             self._decode_runtime_destroy(ctypes.c_void_p(self._decode_handle))
             self._decode_handle = None
         if (
             self._boundary_handle is not None
             and self._boundary_runtime_destroy is not None
         ):
-            self._boundary_runtime_destroy(
-                ctypes.c_void_p(self._boundary_handle)
-            )
+            self._boundary_runtime_destroy(ctypes.c_void_p(self._boundary_handle))
             self._boundary_handle = None
 
 
@@ -292,9 +280,7 @@ class GdnStateCodecRuntime:
     The steady-state token step is the native p=16, r=4 AscendC kernel.
     """
 
-    def __init__(
-        self, experiment: GdnStateCodecExperiment, prefix: str
-    ) -> None:
+    def __init__(self, experiment: GdnStateCodecExperiment, prefix: str) -> None:
         self.experiment = experiment
         self.prefix = prefix
         self._libraries = _GdnStateCodecLibraries(experiment.library_dir)
@@ -381,21 +367,15 @@ class GdnStateCodecRuntime:
             )
             residual = dense
         else:
-            raise RuntimeError(
-                f"unsupported GdnStateCodec initializer: {initializer}"
-            )
-        smoothing = torch.sqrt(
-            torch.clamp(residual.abs().mean(dim=2), min=1.0e-8)
-        )
+            raise RuntimeError(f"unsupported GdnStateCodec initializer: {initializer}")
+        smoothing = torch.sqrt(torch.clamp(residual.abs().mean(dim=2), min=1.0e-8))
         smoothed = residual / smoothing.unsqueeze(2)
         scales = smoothed.abs().amax(dim=1)
         safe_scales = torch.where(scales == 0, torch.ones_like(scales), scales)
-        quantized = torch.round(
-            smoothed / safe_scales.unsqueeze(1) * 127.0
-        ).clamp_(-127, 127)
-        encoded_residual = (
-            quantized.to(torch.int8).transpose(-2, -1).contiguous()
+        quantized = torch.round(smoothed / safe_scales.unsqueeze(1) * 127.0).clamp_(
+            -127, 127
         )
+        encoded_residual = quantized.to(torch.int8).transpose(-2, -1).contiguous()
         encoded_smoothing = smoothing.contiguous()
         encoded_scales = scales.contiguous()
         encoded_compensator_keys = left.to(torch.float16).contiguous()
@@ -450,12 +430,8 @@ class GdnStateCodecRuntime:
             scratch_residual=torch.empty_like(encoded_residual),
             scratch_smoothing=torch.empty_like(encoded_smoothing),
             scratch_scales=torch.empty_like(encoded_scales),
-            scratch_compensator_keys=torch.empty_like(
-                encoded_compensator_keys
-            ),
-            scratch_compensator_values=torch.empty_like(
-                encoded_compensator_values
-            ),
+            scratch_compensator_keys=torch.empty_like(encoded_compensator_keys),
+            scratch_compensator_values=torch.empty_like(encoded_compensator_values),
             residual_workspace=torch.empty(
                 encoded_residual.shape,
                 dtype=torch.float32,
@@ -481,9 +457,7 @@ class GdnStateCodecRuntime:
         )
         return slot
 
-    def _encode_quant_only_provider(
-        self, provider_dense: torch.Tensor
-    ) -> _EncodedSlot:
+    def _encode_quant_only_provider(self, provider_dense: torch.Tensor) -> _EncodedSlot:
         if provider_dense.ndim != 3 or provider_dense.shape[-2:] != (
             VALUE_DIMENSION,
             KEY_DIMENSION,
@@ -539,8 +513,7 @@ class GdnStateCodecRuntime:
             )
             if status != 0:
                 raise RuntimeError(
-                    "GDN State Codec provider initializer launch failed: "
-                    f"{status}"
+                    f"GDN State Codec provider initializer launch failed: {status}"
                 )
         else:
             status = smoothing_launch(
@@ -638,9 +611,7 @@ class GdnStateCodecRuntime:
             slot = self._encode_quant_only_provider(provider_dense)
         else:
             dense = provider_dense.transpose(-2, -1).contiguous()
-            slot = self._encode_dense_boundary(
-                dense, self.experiment.initializer
-            )
+            slot = self._encode_dense_boundary(dense, self.experiment.initializer)
         if (
             self.experiment.boundary_power_iterations == 0
             and self._libraries.boundary_runtime_step is not None
@@ -648,7 +619,9 @@ class GdnStateCodecRuntime:
         ):
             self._libraries.boundary_handle(slot.residual.shape[0])
         self._slots[cache_index] = slot
-        logger.info("GDN State Codec initialized %s cache slot %d", self.prefix, cache_index)
+        logger.info(
+            "GDN State Codec initialized %s cache slot %d", self.prefix, cache_index
+        )
         return slot
 
     def _refit_boundary(self, slot: _EncodedSlot) -> None:
@@ -666,9 +639,7 @@ class GdnStateCodecRuntime:
         )
         if use_cube_boundary:
             scaled_record_keys = slot.scaled_record_keys
-            boundary_handle = self._libraries.boundary_handle(
-                slot.residual.shape[0]
-            )
+            boundary_handle = self._libraries.boundary_handle(slot.residual.shape[0])
             if boundary_handle is None:
                 raise RuntimeError(
                     "GDN State Codec Cube boundary runtime is unavailable"
@@ -760,9 +731,7 @@ class GdnStateCodecRuntime:
         slot.steps = 0
         self.boundary_refits += 1
         log_boundary = (
-            logger.warning
-            if self.experiment.mode == "shadow"
-            else logger.info
+            logger.warning if self.experiment.mode == "shadow" else logger.info
         )
         log_boundary(
             "GDN State Codec boundary %s refits=%d shadow_max_relative_rms=%.8g",
@@ -793,9 +762,7 @@ class GdnStateCodecRuntime:
         if slot.steps == WINDOW_SIZE:
             self._refit_boundary(slot)
         elif slot.steps > WINDOW_SIZE:
-            raise RuntimeError(
-                "GDN State Codec runtime window position exceeded p=16"
-            )
+            raise RuntimeError("GDN State Codec runtime window position exceeded p=16")
         heads = slot.residual.shape[0]
         if not self._input_contract_validated:
             query_shape = (1, 1, heads // 2, KEY_DIMENSION)

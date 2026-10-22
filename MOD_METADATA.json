@@ -36,20 +36,10 @@
   },
   "evidence": {
     "qualification": "unqualified",
-    "latest_result": "evidence/ecpa-manager03-launch-20261009/ROUND-RESULTS.md",
-    "index": "catalog.json",
-    "performance_claims": [
-      {
-        "label": "real-online-e2e",
-        "scope": "Qwen3.5-35B-A3B TP2 eager, four AgentX first-turn shapes, 128 output tokens",
-        "result": "Version 0.2.0 ranged from 0.60% faster to 0.81% slower in total-time medians, regressed TTFT in all four cells, and changed every output hash; no stable gain qualified."
-      },
-      {
-        "label": "model-derived-component-negative",
-        "scope": "paper-aligned p16/r4 encoded Cube boundary on the frozen layer-0 fixture",
-        "result": "Correctness passed, but matched 82-step total time was 1.5829x native, so the no-harm gate failed."
-      }
-    ]
+    "latest_result": "https://github.com/vLLM-HUST/vllm-hust-benchmark/blob/819b1975f346dca514f58880ca62518850100b2d/archive/mod-git-20261022/gdn-state-codec/snapshot/evidence/ecpa-manager03-launch-20261009/ROUND-RESULTS.md",
+    "index": "EVIDENCE.md",
+    "performance_claims": [],
+    "performance_claims_source": "https://github.com/vLLM-HUST/vllm-hust-benchmark/blob/819b1975f346dca514f58880ca62518850100b2d/archive/mod-git-20261022/gdn-state-codec/snapshot/MOD_METADATA.json"
   },
   "metadata_source": {
     "catalog": "catalog.json",
